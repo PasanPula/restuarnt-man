@@ -13,8 +13,8 @@ const Item = ({item, setShowCustomizePopup,setcartItem }) => {
 
   const [{ menuItems } ] = useMenuContext();
   const [{ cartItems }, cartDispatch ] = useCartContext();
-  const { id, menu_id, qty, totalValue } = item;
-  const menuItem = getMenuById(menuItems, menu_id);
+  const { item_id, qty, totalValue } = item;
+  const menuItem = getMenuById(menuItems, item_id);
 
   return (
     <>
@@ -37,9 +37,10 @@ const Item = ({item, setShowCustomizePopup,setcartItem }) => {
 
       <motion.div
         whileTap={{ scale: 0.75 }}
-        className="flex items-center justify-center w-6 h-6 text-sm rounded-lg text-gray-50 bg-green-600 "
+        className="flex items-center justify-center w-6 h-6 text-sm bg-green-600 rounded-lg text-gray-50 "
         onClick={() => {
           setcartItem(item)
+          console.log("ppop",item)
           setShowCustomizePopup(true)}}
       >
         <BiSolidPencil />

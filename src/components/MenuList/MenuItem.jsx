@@ -15,8 +15,6 @@ const MenuItem = ({item, col, admin}) => {
     const [{ cartItems }, cartDispatch] =  useCartContext();
     const [{ user,isAdmin, adminMode } ] =  useUserContext();
     const [showCustomizePopup, setShowCustomizePopup] = useState(false);
-
-    console.log(item)
     
   return ( 
     <>

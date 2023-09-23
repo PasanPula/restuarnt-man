@@ -28,8 +28,8 @@ const Checkout = ({ handler }) => {
           className="flex items-center justify-center gap-1"
           title="Secured"
         >
-          <BsShieldLock className="text-xl cursor-pointer text-cartNumBg" />
-          <RiSecurePaymentLine className="text-xl cursor-pointer text-cartNumBg" />
+          <BsShieldLock className="text-xl cursor-pointer text-primeGold" />
+          <RiSecurePaymentLine className="text-xl cursor-pointer text-primeGold" />
         </motion.div>
       </div>
       <CheckoutBody action={handler} />

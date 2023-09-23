@@ -30,11 +30,11 @@ const CheckoutBody = ({action}) => {
 
     setLoading(true);
 
-    // await placeOrder(fullOrder)
+    await placeOrder(fullOrder)
 
     setTimeout(async () => {
       setLoading(false);
-      // emptyCart(cartItems, menuItems, cartDispatch);
+      emptyCart(cartItems, menuItems, cartDispatch);
       action(false);
     }, 3000);
   };
@@ -58,7 +58,7 @@ const CheckoutBody = ({action}) => {
         <motion.button
           onClick={completePayment}
           whileTap={{ scale: 0.95 }}
-          className="flex items-center justify-center gap-2 w-[90%] p-2 rounded-full bg-gradient-to-tr from-orange-400 to-orange-600 hover:from-orange-600 hover:to-orange-400 transition-all duration-75 ease-in-out text-gray-50 text-lg my-2 hover:shadow-lg"
+          className="flex items-center justify-center gap-2 w-[90%] p-2 rounded-full bg-primeGold hover:bg-primeGoldDark  transition-all duration-75 ease-in-out text-gray-50 text-lg my-2 hover:shadow-lg"
         >
           {!loading && <BiLock className="" />}
           {!loading ? (

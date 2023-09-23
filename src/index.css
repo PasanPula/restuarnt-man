@@ -30,7 +30,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: rgb(249, 115, 22);
+    background-color: #9B804E;
     outline: none;
 }
 

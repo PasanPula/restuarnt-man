@@ -8,8 +8,7 @@ import { useCartContext } from '../../context/CartContext/CartProvider';
 
 const MenuPopup = ({item,setShowCustomizePopup}) => {
 
-    const { id, title, price, calories, customize,imageURL, description } = item;
-    console.log(item)
+    const { _id, title, price, calories, customize,imageURL, description } = item;
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [quantity, setQuantity] = useState(1);
     const [comment, setComment] = useState('');
@@ -50,7 +49,7 @@ const MenuPopup = ({item,setShowCustomizePopup}) => {
             comment,
             totalValue
         }
-        addToCart(cartItems, menuItems,user,id,cartDispatch,customizeData);
+        addToCart(cartItems, menuItems,user,_id,cartDispatch,customizeData);
         setShowCustomizePopup(false);
       };
 

@@ -9,6 +9,7 @@ import Dropdown from './Dropdown';
 import MobileNav from './MobileNav';
 import { useUserContext } from '../../context/UserContext/UserProvider';
 import Avatar from '../../assets/avatar.png'
+import logo from '../../assets/logo2.png'
 
 const Header = () => {
 
@@ -25,9 +26,10 @@ const Header = () => {
             whileHover={{ scale: 1.1 }}
             className="flex items-center gap-2 cursor-pointer"
           >
-            <p className="font-bold text-headingColor md:text-lg lg:text-xl">
+            <img className='w-[30%] ' src={logo}></img>
+            {/* <p className="font-bold text-headingColor md:text-lg lg:text-xl">
             River&apos;s&nbsp;Edge
-            </p>
+            </p> */}
           </motion.div>
         </Link>
 
@@ -83,13 +85,13 @@ const Header = () => {
               <motion.div
                 whileHover={{ scale: 1.1 }}
                 className="flex items-center gap-2 cursor-pointer"
-              >
+              > 
                 <p className="text-xl font-bold text-headingColor">
                     River&apos;s&nbsp;Edge
                 </p>
               </motion.div>
             </Link>
-            {user ? (
+            {/* {user ? ( */}
               <div
                 className={`flex items-center gap-3 px-3 py-1 rounded-lg relative`}
               >
@@ -109,9 +111,9 @@ const Header = () => {
                   {isOpen && <Dropdown user={user}  />}
                 </motion.div>
               </div>
-            ) : (
+            {/* ) : (
               <LoginAction mobile />
-            )}
+            )} */}
           </div>
         )}
       </motion.div>

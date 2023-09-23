@@ -56,7 +56,7 @@ const Order = ({item}) => {
         <ul className="ml-6 list-disc">
           {item.items.map((dish) => {
             return (<li key={dish.item_id._id}>
-              [DISH ID: {dish.menu_id}] - <span className="font-semibold">{dish.item_id.title}</span> - {dish.qty} Items
+              [DISH ID: {dish._id}] - <span className="font-semibold">{dish.item_id.title}</span> - {dish.qty} Items
               <br />
               {/* <span className='font-semibold ' > Add Ons: </span> 
               <ul className="ml-8 list-disc">

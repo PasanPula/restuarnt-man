@@ -17,7 +17,7 @@ const CartPopup = ({item,setShowCustomizePopup}) => {
         const [{ cartItems }, cartDispatch] =  useCartContext()
         const [{ user } ] =  useUserContext();
         const  [menuItem,setMenuItem] = useState(menuItems.filter((itm) => {
-          return item.menu_id === itm.id
+          return item.item_id === itm._id
         })[0]);
 
         useEffect(() => {
@@ -60,7 +60,7 @@ const CartPopup = ({item,setShowCustomizePopup}) => {
                 type: CartTypes.SET_CART_ITEMS,
                 cartItems: itemRemovedcart,
             })
-            addToCart(itemRemovedcart, menuItems,user,menuItem.id,cartDispatch,customizeData);
+            addToCart(itemRemovedcart, menuItems,user,menuItem._id,cartDispatch,customizeData);
             setShowCustomizePopup(false);
           };
 

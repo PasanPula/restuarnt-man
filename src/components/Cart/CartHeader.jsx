@@ -23,7 +23,7 @@ const CartHeader = () => {
 
     <div className="flex items-center justify-center gap-2">
       Cart
-      <MdShoppingBasket className="text-xl cursor-pointer text-cartNumBg" />
+      <MdShoppingBasket className="text-xl cursor-pointer text-primeGold" />
     </div>
 
     {/* {
@@ -34,7 +34,7 @@ const CartHeader = () => {
         onClick={() => emptyCart(cartItems, menuItems,cartDispatch)}
         className="flex items-center justify-center gap-2 p-1 px-2 my-2 text-base rounded-md bg-cardOverlay hover:shadow-sm text-textColor"
       >
-        clear <BiRefresh className="text-cartNumBg" />
+        clear <BiRefresh className="text-primeGold" />
       </motion.p>
     {/* ) 
     : (

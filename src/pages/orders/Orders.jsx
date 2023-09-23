@@ -131,7 +131,9 @@ const Orders = () => {
 
   return (
     <>
-    { showLoader ? <Loader progress = {"Fetching Orders....."} />  : (
+    { showLoader ?  <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+      <div className="w-32 h-32 border-t-2 border-b-2 border-gray-400 rounded-full animate-spin"></div>
+    </div>  : (
       <>
     { showCustomizePopup && <OrderEditPopup orderItem={editingOrderItem} setUpdatedItemData={setUpdatedItemData} setShowCustomizePopup={setShowCustomizePopup} /> }
     <div className="container p-6 mx-auto">

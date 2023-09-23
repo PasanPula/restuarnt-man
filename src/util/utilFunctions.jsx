@@ -3,8 +3,8 @@ import { MenuTypes, OrderTypes, UserTypes } from "../configs/Constants/ActionTyp
 import { FaExclamationCircle } from 'react-icons/fa';
 import { MdDone } from 'react-icons/md';
 
-export const getMenuById = (menu, menu_id) => {
-  return menu.find((item) => item.id === menu_id);
+export const getMenuById = (menu, _id) => {
+  return menu.find((item) => item._id === _id);
 };
 
 // Update Cart Item Quantity
@@ -84,7 +84,7 @@ export const addToCart = async (
     cartItems,
     menuItems,
     user,
-    menu_id,
+    _id,
     dispatch,
     customizeData
   ) => {
@@ -94,16 +94,14 @@ export const addToCart = async (
     //     toastId: "unauthorizedAddToCart",
     //   });
     // } else {
-      console.log(menu_id)
-      if (cartItems.some((item) => item["menu_id"] === menu_id)) {
+      if (cartItems.some((item) => item["item_id"] === _id)) {
         toast.error("Item already in cart", {
           icon: <MdShoppingBasket className="text-2xl text-cartNumBg" />,
           toastId: "itemAlreadyInCart",
         });
       } else {
         const data = {
-          item_id: Date.now(),
-          menu_id: menu_id,
+          item_id: _id,
           // uid: user.uid,
           qty: customizeData.quantity,
           selectedOptions: customizeData.selectedOptions,
