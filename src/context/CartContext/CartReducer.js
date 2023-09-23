@@ -3,6 +3,7 @@ import { CartTypes} from "../../configs/Constants/ActionTypes";
 function CartReducer(state, action) {
     switch (action.type) {
       case CartTypes.SET_CART_ITEMS:
+        console.log(action.cartItems)
         return {
             ...state,
             cartItems: action.cartItems,

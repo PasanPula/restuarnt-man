@@ -5,36 +5,42 @@ import { useMenuContext } from '../../context/MenuContext/MenuProvider';
 import { useUserContext } from '../../context/UserContext/UserProvider';
 import r4 from '../../assets/r4.png';
 
-const OrderEditPopup = ({orderItem,editingOrder,setShowCustomizePopup}) => {
-
-        console.log(orderItem)
-
+const OrderEditPopup = ({orderItem,setUpdatedItemData,setShowCustomizePopup}) => {
         const [quantity, setQuantity] = useState(orderItem.qty);
         const [comment, setComment] = useState(orderItem.comment);
         // const [totalValue, setTotalValue] = useState(orderItem.totalValue);
         const [{ menuItems }, menuDispatch] =  useMenuContext()
         const [{ cartItems }, cartDispatch] =  useCartContext()
         const [{ user } ] =  useUserContext();
-        const  [menuItem,setMenuItem] = useState(orderItem.item_id);
-        const [selectedOptions, setSelectedOptions] = useState( orderItem.selectedOptions);
-
+        const  [menuItem,setMenuItem] = useState( menuItems.filter((menuItem) => {
+          return menuItem._id === orderItem.item_id._id
+        } )[0]);
+        const [selectedOptions, setSelectedOptions] = useState(orderItem.selectedOptions);
 
         // useEffect(() => {
         //     setTotalValue(calculateTotalValue())
         // }, [selectedOptions,quantity])
         
     
-        const calculateTotalValue = () => {
-            let total = parseInt(menuItem.price);
-            selectedOptions.forEach((option) => {
-              total += parseInt(option.price); 
-            });
-            return total * quantity;
-        };
+        // const calculateTotalValue = () => {
+        //     let total = parseInt(menuItem.price);
+        //     selectedOptions.forEach((option) => {
+        //       total += parseInt(option.price); 
+        //     });
+        //     return total * quantity;
+        // };
     
         const toggleOption = (option) => {
             const updatedOptions = [...selectedOptions];
-            if (updatedOptions.includes(option)) {
+            
+            let isSelected = false;
+            updatedOptions.forEach((opn) => {
+            if(opn._id === option._id){
+              isSelected= true
+              }
+            });
+
+            if (isSelected) {
               updatedOptions.splice(updatedOptions.indexOf(option), 1);
             } else {
               updatedOptions.push(option);
@@ -43,15 +49,32 @@ const OrderEditPopup = ({orderItem,editingOrder,setShowCustomizePopup}) => {
           };
     
           const handleAddToCart = () => {
+
+            let op = [];
     
+            selectedOptions.forEach((option) => {
+              op.push(option._id);
+            })
+
             const customizeData = {
-                quantity,
-                selectedOptions,
+                menu_id: orderItem.menu_id,
+                item_id: orderItem.item_id._id,
+                qty:quantity,
                 comment,
-                // totalValue
+                selectedOptions: op,
+                _id: orderItem._id
             }
 
-            console.log(editingOrder);
+            orderItem.comment = comment;
+            orderItem.qty = quantity;
+            orderItem.selectedOptions = selectedOptions;
+
+            setUpdatedItemData((state) => {
+              let nArr = state.filter((ord) => {
+                return ord.item_id != customizeData.item_id
+              })
+              return [...nArr,customizeData];
+            })
 
             // let itemRemovedcart = cartItems.filter((itm) => {
             //   return !(item.item_id === itm.item_id)
@@ -62,7 +85,7 @@ const OrderEditPopup = ({orderItem,editingOrder,setShowCustomizePopup}) => {
             //     cartItems: itemRemovedcart,
             // })
             // addToCart(itemRemovedcart, menuItems,user,menuItem.id,cartDispatch,customizeData);
-            // setShowCustomizePopup(false);
+            setShowCustomizePopup(false);
           };
 
   return (
@@ -161,21 +184,28 @@ const OrderEditPopup = ({orderItem,editingOrder,setShowCustomizePopup}) => {
                   <div className="mb-4">
                     <label className="block text-sm text-gray-600">Customization Options:</label>
                     <div className="grid grid-cols-2 gap-2">
-                      {menuItem.customize.map((option,index) => (
-                        <label
+                      {menuItem.customize.map((option,index) => {
+                                let isSelected = false;
+                                selectedOptions.forEach((opn) => {
+                                if(opn._id === option._id){
+                                  isSelected= true
+                                  }
+                                })
+
+                        return (<label
                           key={index}
                           className="block p-2 text-sm bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200"
                         >
                           <input
                             type="checkbox"
                             value={option.option}
-                            checked={selectedOptions.includes(option)}
+                            checked={isSelected}
                             onChange={() => toggleOption(option)}
                             className="mr-2 cursor-pointer"
                           />
                           {option.option} (+Rs.{option.price})
-                        </label>
-                      ))}
+                        </label>)
+                      })}
                     </div>
                   </div>
                 )}
@@ -203,3 +233,4 @@ const OrderEditPopup = ({orderItem,editingOrder,setShowCustomizePopup}) => {
     }
 
 export default OrderEditPopup;
+

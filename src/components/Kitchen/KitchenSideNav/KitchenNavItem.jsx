@@ -27,7 +27,6 @@ const handleClick = () => {
  const [itemCount,setItemCount] = useState(1);
 
  useEffect(() => {
-  console.log(pendingOrders)
   switch (title) {
     case KitchenPages.MENU:
       setItemCount(menuItems.length)

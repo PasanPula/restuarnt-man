@@ -9,6 +9,7 @@ import { useCartContext } from '../../context/CartContext/CartProvider';
 const MenuPopup = ({item,setShowCustomizePopup}) => {
 
     const { id, title, price, calories, customize,imageURL, description } = item;
+    console.log(item)
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [quantity, setQuantity] = useState(1);
     const [comment, setComment] = useState('');

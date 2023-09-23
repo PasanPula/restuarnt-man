@@ -48,7 +48,6 @@ export const placeOrder = async (order) => {
         }else {
             toastError('Order Failed! Try Again Later','apifail')
         }
-        console.log(data)
     }).catch((error) => {
         toastError(error,'apifail')
     }) 
@@ -90,16 +89,28 @@ export const fetchOrders = async (orderDispatch) => {
 };
 
 
-export const updateOrder = async (order) => {
-    await axios.put(BASE_URL+ORDERS,order).then((data) => {
-        console.log(data)
+export const updateSingleOrder = async (order,orderId) => {
+    await axios.put(BASE_URL+ORDERS+'/'+orderId,order).then((data) => {
         let reposnseData = data.data;
+        console.log(reposnseData)
         if(reposnseData.success){
-            toastSucess( "Order completed successfuly with payment. Thank you for your patronage.",'apiSucess')
+            toastSucess( "Order updated successfuly.",'apiSucess')
         }else {
             toastError('Order Failed! Try Again Later','apifail')
         }
-        console.log(data)
+    }).catch((error) => {
+        toastError(error,'apifail')
+    }) 
+};
+
+export const cancelOrder = async (orderId) => {
+    await axios.delete(BASE_URL+ORDERS+'/'+orderId).then((data) => {
+        let reposnseData = data.data;
+        if(reposnseData.success){
+            toastSucess( "Order Canceled successfuly.",'apiSucess')
+        }else {
+            toastError('Order Failed! Try Again Later','apifail')
+        }
     }).catch((error) => {
         toastError(error,'apifail')
     }) 

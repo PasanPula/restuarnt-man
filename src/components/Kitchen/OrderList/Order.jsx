@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { MdCancel, MdCheck,MdDeleteForever } from 'react-icons/md';
 import { useMenuContext } from '../../../context/MenuContext/MenuProvider';
-import { fetchOrders, updateOrder } from '../../../api/api';
+import { fetchOrders } from '../../../api/api';
 import { useOrderContext } from '../../../context/OrderContext/OrderProvider';
 
 const Order = ({item}) => {

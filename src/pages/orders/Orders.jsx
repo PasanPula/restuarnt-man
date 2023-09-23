@@ -8,7 +8,7 @@ import { BiSolidPencil } from "react-icons/bi";
 import OrderEditPopup from '../../components/OrderPage/OrderEditPopup';
 import { useMenuContext } from '../../context/MenuContext/MenuProvider';
 import { useNavigate } from 'react-router-dom';
-import { fetchOrders } from '../../api/api';
+import { cancelOrder, fetchOrders, updateSingleOrder } from '../../api/api';
 import Loader from '../../components/Loader/Loader';
 import { useOrderContext } from '../../context/OrderContext/OrderProvider';
 
@@ -54,6 +54,7 @@ const Orders = () => {
   const navigate = useNavigate();
   const effectRan = useRef(false);
   const [showLoader,setShowLoader] = useState(true);
+  const [updatedItemData, setUpdatedItemData] = useState([]);
 
   useEffect(() => {
     if(!menuItems){
@@ -65,7 +66,6 @@ const Orders = () => {
     if(effectRan.current === false){
       (async () => {
         await fetchOrders(orderDispatch);
-        console.log("og",orders)
         setShowLoader(false);
       })()
       effectRan.current = true;
@@ -73,13 +73,50 @@ const Orders = () => {
   }, [])
   
 
-  const handleEditOrder = (orderId) => {
-    setEditingOrder(orderId);
+  const handleEditOrder = (order) => {
+    setEditingOrder(order.order_id);
+    setCurrentOrder(order);
   };
 
-  const handleSaveOrder = () => {
-    setEditingOrder(null); // Disable edit mode
-    // Add logic to save the order here
+  const handleSaveOrder = async () => {
+
+    const updateOrder ={
+      "payment_method" : currentOrder.payment_method,
+      "items" : []
+    }
+
+    let unchnagedItems = currentOrder.items.filter((oit)=>{
+        let cond = true;
+         updatedItemData.forEach((upd) => {
+           if(oit._id === upd._id){
+              cond=false
+           }
+         })
+        return cond;
+    })
+    
+    unchnagedItems.map((itm) => {
+       let cpy  = {
+         comment : itm.comment,
+         menu_id : itm.menu_id,
+         item_id : itm.item_id._id,   
+         qty : itm.qty,
+         selectedOptions : [
+        ]
+       }
+
+       itm.selectedOptions.forEach((optn) => {
+        cpy.selectedOptions.push(optn._id)
+       })
+
+       updateOrder.items.push(cpy);
+    })
+
+    updateOrder.items.push(...updatedItemData)
+    await updateSingleOrder(updateOrder,currentOrder._id)
+    await fetchOrders(orderDispatch);
+
+    setEditingOrder(null); 
   };
 
   const handleOrderItemEdit = (orderItem,order) => {
@@ -87,11 +124,16 @@ const Orders = () => {
     setShowCustomizePopup(true);
   }
 
+  const handleCancelOrder = async (order) =>{
+    await cancelOrder(order._id);
+    await fetchOrders(orderDispatch);
+  }
+
   return (
     <>
     { showLoader ? <Loader progress = {"Fetching Orders....."} />  : (
       <>
-    { showCustomizePopup && <OrderEditPopup orderItem={editingOrderItem} editingOrder={editingOrder} setShowCustomizePopup={setShowCustomizePopup} /> }
+    { showCustomizePopup && <OrderEditPopup orderItem={editingOrderItem} setUpdatedItemData={setUpdatedItemData} setShowCustomizePopup={setShowCustomizePopup} /> }
     <div className="container p-6 mx-auto">
     <div className='flex flex-row justify-between '>
     <h1 className="mb-6 text-2xl font-semibold">Your Orders</h1>
@@ -153,10 +195,12 @@ const Orders = () => {
                 Edit Order will incur additional charges
               </div>
             )}
+          <div className='flex flex-row justify-between' >
           {editingOrder === order.order_id ? (
               <motion.button
-                className="px-4 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600"
+                className={`px-4 py-2 ${updatedItemData.length === 0 ? 'bg-gray-600 hover:bg-gray-600 text-gray-300' : 'text-white bg-green-500 hover:bg-green-600'} rounded-lg `}
                 onClick={handleSaveOrder}
+                disabled={ updatedItemData.length === 0 ? true : false}
               >
                 Save Order
               </motion.button>
@@ -164,12 +208,22 @@ const Orders = () => {
               order.order_status.toLowerCase() === 'pending' && (
                 <motion.button
                   className="px-4 py-2 text-white bg-orange-500 rounded-lg hover:bg-orange-600"
-                  onClick={() => handleEditOrder(order.order_id)}
+                  onClick={() => handleEditOrder(order)}
                 >
                   Edit Order
                 </motion.button>
               )
             )}
+
+            {order.order_status.toLowerCase() === 'pending' && (
+              <motion.button
+              className="px-4 py-2 text-white bg-red-500 rounded-lg hover:bg-red-600"
+              onClick={() => handleCancelOrder(order)}
+            >
+              Cancel Order
+            </motion.button>
+            )}
+            </div>
         </motion.div>
       ))}
     </div>

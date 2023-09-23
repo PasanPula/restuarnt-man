@@ -94,6 +94,7 @@ export const addToCart = async (
     //     toastId: "unauthorizedAddToCart",
     //   });
     // } else {
+      console.log(menu_id)
       if (cartItems.some((item) => item["menu_id"] === menu_id)) {
         toast.error("Item already in cart", {
           icon: <MdShoppingBasket className="text-2xl text-cartNumBg" />,
@@ -115,7 +116,6 @@ export const addToCart = async (
           type: CartTypes.SET_CART_ITEMS,
           cartItems: crtItems,
         });
-        console.log(crtItems)
         calculateCartTotal(crtItems, menuItems, dispatch);
       }
     // }
@@ -205,7 +205,6 @@ export const logout = async (user, userDispatch, cartDispatch, navigate) => {
 };
 
 export function OrderFilter(Orders,type){
-  console.log(Orders,type)
   const filteredArr = Orders.filter((order) => {
     return order.order_status.toLowerCase() == type;
   });
@@ -219,7 +218,7 @@ export function toastError(msg,id) {
   });
 }
 export function toastSucess(msg,id) {
-  toast.error(msg, {
+  toast.success(msg, {
         icon: <MdDone className="text-2xl text-green-600" />,
         toastId: id,
   });

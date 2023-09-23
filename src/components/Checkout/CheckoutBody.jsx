@@ -26,9 +26,11 @@ const CheckoutBody = ({action}) => {
       items : cartItems
     }
 
+    console.log(fullOrder)
+
     setLoading(true);
 
-    await placeOrder(fullOrder)
+    // await placeOrder(fullOrder)
 
     setTimeout(async () => {
       setLoading(false);

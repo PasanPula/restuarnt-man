@@ -8,7 +8,6 @@ function OrderReducer(state, action) {
             orders: [...action.orders],
         };
     case OrderTypes.SET_PENDING_ORDERS:
-        console.log(action.pendingOrders)
         return {
             ...state,
             pendingOrders: [...action.pendingOrders],
