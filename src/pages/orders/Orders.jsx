@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import od from '../../configs/Data/Orders.json'
 import uod from '../../configs/Data/UOrder.json'
@@ -7,6 +7,10 @@ import { useCartContext } from '../../context/CartContext/CartProvider';
 import { BiSolidPencil } from "react-icons/bi";
 import OrderEditPopup from '../../components/OrderPage/OrderEditPopup';
 import { useMenuContext } from '../../context/MenuContext/MenuProvider';
+import { useNavigate } from 'react-router-dom';
+import { fetchOrders } from '../../api/api';
+import Loader from '../../components/Loader/Loader';
+import { useOrderContext } from '../../context/OrderContext/OrderProvider';
 
 const OrderStatusBadge = ({ status }) => {
   let badgeClass = '';
@@ -39,12 +43,35 @@ const OrderStatusBadge = ({ status }) => {
 };
 
 const Orders = () => {
-  const [orders, setOrders] = useState(uod);
+  // const [orders, setOrders] = useState(uod);
   const [totalPaid, setTotalPaid] = useState(uod);
   const [editingOrder, setEditingOrder] = useState(null);
+  const [currentOrder, setCurrentOrder] = useState(null);
   const [editingOrderItem, setEditingOrderItem] = useState(null);
   const [showCustomizePopup, setShowCustomizePopup] = useState(false);
   const [{menuItems}] = useMenuContext();
+  const [{orders}, orderDispatch] = useOrderContext();
+  const navigate = useNavigate();
+  const effectRan = useRef(false);
+  const [showLoader,setShowLoader] = useState(true);
+
+  useEffect(() => {
+    if(!menuItems){
+      navigate('/')
+    }
+
+     setShowLoader(true);
+
+    if(effectRan.current === false){
+      (async () => {
+        await fetchOrders(orderDispatch);
+        console.log("og",orders)
+        setShowLoader(false);
+      })()
+      effectRan.current = true;
+    }
+  }, [])
+  
 
   const handleEditOrder = (orderId) => {
     setEditingOrder(orderId);
@@ -55,20 +82,22 @@ const Orders = () => {
     // Add logic to save the order here
   };
 
-  const handleOrderItemEdit = (orderItem) => {
+  const handleOrderItemEdit = (orderItem,order) => {
     setEditingOrderItem(orderItem)
     setShowCustomizePopup(true);
   }
 
   return (
     <>
-    { showCustomizePopup && <OrderEditPopup orderItem={editingOrderItem} setShowCustomizePopup={setShowCustomizePopup} /> }
-    <div className="container mx-auto p-6">
-    <div className=' flex flex-row justify-between '>
-    <h1 className="text-2xl font-semibold mb-6">Your Orders</h1>
-    <div className="flex justify-between items-center mb-4">
+    { showLoader ? <Loader progress = {"Fetching Orders....."} />  : (
+      <>
+    { showCustomizePopup && <OrderEditPopup orderItem={editingOrderItem} editingOrder={editingOrder} setShowCustomizePopup={setShowCustomizePopup} /> }
+    <div className="container p-6 mx-auto">
+    <div className='flex flex-row justify-between '>
+    <h1 className="mb-6 text-2xl font-semibold">Your Orders</h1>
+    <div className="flex items-center justify-between mb-4">
         <button
-          className="bg-blue-500 text-white rounded-lg px-4 py-2 hover:bg-blue-600 flex flex-row items-center "
+          className="flex flex-row items-center px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 "
         //   onClick={handleRefresh}
         >
           <FiRefreshCw className="mr-2" /> Refresh
@@ -76,7 +105,7 @@ const Orders = () => {
       </div>
     </div>
     <div className="grid gap-6">
-      {orders.map((order) => (
+      {orders?.map((order) => (
         <motion.div
           key={order.order_id}
           className="p-6 border border-gray-300 rounded-lg shadow-lg"
@@ -85,29 +114,29 @@ const Orders = () => {
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
         >
-          <div className="flex justify-between items-center mb-4">
+          <div className="flex items-center justify-between mb-4">
             <div className="text-xl font-semibold">Order #{order.order_id}</div>
             <OrderStatusBadge status={order.order_status} />
           </div>
           <div className="mb-4">
-            <div className="text-orange-600 text-md font-bold">Paid: Rs.{order.items.reduce((sum, item) => sum + item.totalValue, 0)}</div>
-            <div className="text-gray-600 text-sm">Order Date: {order.order_date}</div>
-            <div className="text-gray-600 text-sm">Payment Method: {order.payment_method}</div>
+            {/* <div className="font-bold text-orange-600 text-md">Paid: Rs.{order.items.reduce((sum, item) => sum + item.totalValue, 0)}</div> */}
+            <div className="text-sm text-gray-600">Order Date: {order.order_date}</div>
+            <div className="text-sm text-gray-600">Payment Method: {order.payment_method}</div>
           </div>
           <div className="mb-4">
             <div className="text-lg font-semibold">Order Items:</div>
-            <ul className="list-disc ml-6">
+            <ul className="ml-6 list-disc">
               {order.items.map((item) => {
 
-                let menuItem = menuItems.find((mi) => {
-                  return mi.id === item.menu_id
-                });
+                // let menuItem = menuItems.find((mi) => {
+                //   return mi.id === item.menu_id
+                // });
 
-                return (<li key={item.item_id}>
+                return (<li key={item.item_id._id}>
                   <div className='flex flex-row mt-3'>
-                  {menuItem.title} (Qty: {item.qty})
+                  {item.item_id?.title} (Qty: {item.qty})
                   {editingOrder === order.order_id ? (
-                      <button className="flex items-center justify-center w-6 h-6 text-sm rounded-lg text-gray-50 bg-green-600 ml-3 " onClick={() =>handleOrderItemEdit(item)}>
+                      <button className="flex items-center justify-center w-6 h-6 ml-3 text-sm bg-green-600 rounded-lg text-gray-50 " onClick={() =>handleOrderItemEdit(item,order)}>
                          <BiSolidPencil />
                       </button>
                     ) : null}
@@ -116,7 +145,7 @@ const Orders = () => {
               })}
             </ul>
           </div>
-          {order.order_status === 'pending' && (
+          {order.order_status.toLowerCase() === 'pending' && (
               <div className="mb-2 text-orange-500">
                 <span role="img" aria-label="Warning Star">
                   *
@@ -126,15 +155,15 @@ const Orders = () => {
             )}
           {editingOrder === order.order_id ? (
               <motion.button
-                className="bg-green-500 text-white rounded-lg px-4 py-2 hover:bg-green-600"
+                className="px-4 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600"
                 onClick={handleSaveOrder}
               >
                 Save Order
               </motion.button>
             ) : (
-              order.order_status === 'pending' && (
+              order.order_status.toLowerCase() === 'pending' && (
                 <motion.button
-                  className="bg-orange-500 text-white rounded-lg px-4 py-2 hover:bg-orange-600"
+                  className="px-4 py-2 text-white bg-orange-500 rounded-lg hover:bg-orange-600"
                   onClick={() => handleEditOrder(order.order_id)}
                 >
                   Edit Order
@@ -144,7 +173,7 @@ const Orders = () => {
         </motion.div>
       ))}
     </div>
-  </div>
+  </div> </> ) }
   </>
   );
 };

@@ -9,15 +9,15 @@ const MenuButton = ({category, filter, setFilter}) => {
     whileTap={{ scale: 1.1 }}
     className={`group ${
       category.urlParam === filter
-        ? "hover:bg-btnOverlay bg-cartNumBg"
-        : "bg-btnOverlay hover:bg-cartNumBg"
+        ? "hover:bg-btnOverlay bg-primeGold"
+        : "bg-btnOverlay hover:bg-primeGold"
     } w-24 min-w-[6rem] h-28 cursor-pointer rounded-lg drop-shadow-xl flex flex-col gap-3 items-center justify-center duration-150 transition-all  ease-out`}
   >
     <div
       className={`w-10 h-10 rounded-full ${
         category.urlParam === filter
-          ? "group-hover:bg-cartNumBg bg-btnOverlay"
-          : "bg-cartNumBg group-hover:bg-btnOverlay"
+          ? "group-hover:bg-primeGold bg-btnOverlay"
+          : "bg-primeGold group-hover:bg-btnOverlay"
       }  flex items-center justify-center`}
     >
 

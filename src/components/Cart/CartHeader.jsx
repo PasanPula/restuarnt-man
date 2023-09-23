@@ -16,9 +16,9 @@ const CartHeader = () => {
   const [{user}] = useUserContext()
 
   return (
-    <div className="w-full flex items-center bg-white justify-between px-4 py-2 cursor-pointer">
+    <div className="flex items-center justify-between w-full px-4 py-2 bg-white cursor-pointer">
     <motion.div whileTap={{ scale: 0.8 }} onClick={() => hideCart(cartDispatch)}>
-      <MdOutlineKeyboardBackspace className="text-textColor text-2xl " />
+      <MdOutlineKeyboardBackspace className="text-2xl text-textColor " />
     </motion.div>
 
     <div className="flex items-center justify-center gap-2">
@@ -26,28 +26,28 @@ const CartHeader = () => {
       <MdShoppingBasket className="text-xl cursor-pointer text-cartNumBg" />
     </div>
 
-    {
-    user ? (
+    {/* {
+    user ? ( */}
       <motion.p
         whileTap={{ scale: 0.9 }}
         whileHover={{ scale: 0.9 }}
         onClick={() => emptyCart(cartItems, menuItems,cartDispatch)}
-        className="flex items-center justify-center gap-2 p-1 px-2 my-2 bg-cardOverlay rounded-md hover:shadow-sm text-textColor text-base"
+        className="flex items-center justify-center gap-2 p-1 px-2 my-2 text-base rounded-md bg-cardOverlay hover:shadow-sm text-textColor"
       >
         clear <BiRefresh className="text-cartNumBg" />
       </motion.p>
-    ) 
+    {/* ) 
     : (
       <Link to={`/login`} onClick={() => hideCart(cartDispatch)}>
         <motion.p
           whileTap={{ scale: 0.9 }}
           whileHover={{ scale: 0.9 }}
-          className="flex items-center justify-center gap-2 p-1 px-2 my-2 bg-cardOverlay rounded-md hover:shadow-sm text-textColor text-base"
+          className="flex items-center justify-center gap-2 p-1 px-2 my-2 text-base rounded-md bg-cardOverlay hover:shadow-sm text-textColor"
         >
           <MdLogin className="text-cartNumBg" /> Login to cart
         </motion.p>
       </Link>
-    )}
+    )} */}
   </div>
   )
 }

@@ -1,11 +1,12 @@
 import { createContext, useReducer, useContext } from "react";
 import CartReducer from "./CartReducer";
+import { PaymentTypes } from "../../configs/Constants/Types";
 
 const initialState = {
   showCart: false,
   cartItems: [],
   cartTotal: 0,
-  paymentMethod: "COD",
+  paymentMethod: PaymentTypes.CASH,
   checkoutData: {},
 };
 

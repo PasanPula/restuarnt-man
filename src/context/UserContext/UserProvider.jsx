@@ -4,8 +4,8 @@ import UserReducer from './UserReducer';
 const initialState = {  
     // user: sessionUser,
     user: null,
-    isAdmin: false,
-    isKitchen: false,
+    isAdmin: true,
+    isKitchen: true,
     adminMode: false,
     kitchenMode: false,
     // adminMode: sessionUserMode,

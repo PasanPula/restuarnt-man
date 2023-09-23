@@ -14,6 +14,7 @@ import CategorySelect from "./CategorySelect";
 import { MenuCategories } from "../../../configs/Constants/MenuCategories";
 import Loader from "../../Loader/Loader";
 import UploadImage from "./UploadImage";
+import { addMenuItem } from "../../../api/api";
 
 const AddMenu = () => {
   const [title, setTitle] = useState("");
@@ -25,24 +26,71 @@ const AddMenu = () => {
   const [description, setDescription] = useState("");
   const [loaderMessage, setLoadermessage] = useState("");
 
+  const [addonTitle, setaddonTitle] = useState("");
+  const [addonPrice, setaddonPrice] = useState("");
+  const [addons, setAddons] = useState([]); 
+
+    const addAddon = () => {
+      if (addonTitle && addonPrice) {
+        const newAddon = {
+          option: addonTitle,
+          price: parseFloat(addonPrice),
+        };
+        setAddons([...addons, newAddon]);
+        setaddonTitle("");
+        setaddonPrice("");
+      } else {
+        toast.error("Please enter addon name and price");
+      }
+    };
+
+    const saveItem = async () => {
+      if (!title || !price || !category || !quantity || !description) {
+        toast.error("Please fill in all the required fields");
+        return;
+      }
+      
+    const dishData = {
+      title,
+      price: parseFloat(price),
+      qty: parseInt(quantity),
+      category,
+      description,
+      imageURL:"https://example.com/pork_fried_rice.jpg",
+      customize: addons,
+    };
+
+    if(await addMenuItem(dishData)) {
+        setTitle("");
+        setPrice("");
+        setImage(null);
+        setCategory("");
+        setQuantity("");
+        setDescription("");
+        setAddons([]);
+      toast.success("Dish saved successfully!");
+    }
+  }
+
+
   return (
-    <div className="w-full h-fullflex items-center justify-center">
-    <div className="border w-full  flex border-gray-300 items-center rounded-lg p-4 flex-col justify-center gap-4  ">
-      <div className="w-full py-3 border-b border-gray-300 flex -tems-center gap-2">
+    <div className="items-center justify-center w-full h-fullflex">
+    <div className="flex flex-col items-center justify-center w-full gap-4 p-4 border border-gray-300 rounded-lg ">
+      <div className="flex w-full gap-2 py-3 border-b border-gray-300 -tems-center">
         <MdOutlineFastfood className="text-xl text-gray-600" />
         <input
           type="text"
           required
           placeholder="Enter food name"
           autoFocus
-          className="h-full w-full  bg-transparent pl-2 text-textColor outline-none border-none placeholder:text-gray-400"
+          className="w-full h-full pl-2 bg-transparent border-none outline-none text-textColor placeholder:text-gray-400"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
       </div>
 
-      <div className="w-full flex flex-col md:flex-row items-center gap-3">
-        <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2">
+      <div className="flex flex-col items-center w-full gap-3 md:flex-row">
+        <div className="flex items-center w-full gap-2 py-2 border-b border-gray-300">
           <BiCategory className="text-xl text-gray-600" />
           <CategorySelect
             categories={MenuCategories}
@@ -50,14 +98,14 @@ const AddMenu = () => {
             selected={category}
           />
         </div>
-        <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2">
-          <MdOutlineProductionQuantityLimits className="text-gray-600 text-2xl" />
+        <div className="flex items-center w-full gap-2 py-2 border-b border-gray-300">
+          <MdOutlineProductionQuantityLimits className="text-2xl text-gray-600" />
           <input
             type="text"
             required
             placeholder="Quantity"
             autoFocus
-            className="h-full w-full  bg-transparent pl-2 text-textColor outline-none border-none placeholder:text-gray-400"
+            className="w-full h-full pl-2 bg-transparent border-none outline-none text-textColor placeholder:text-gray-400"
             value={quantity}
             onChange={(e) => setQuantity(validateNumber(e.target.value))}
           />
@@ -74,13 +122,13 @@ const AddMenu = () => {
                   <img
                     src={image}
                     alt="uploaded food"
-                    className="w-full h-full object-cover"
+                    className="object-cover w-full h-full"
                   />
                   <motion.button
                     whileTap={{ scale: 1.1 }}
                     whileHover={{ scale: 1.2 }}
                     title="Remove Photo"
-                    className="absolute bottom-3 right-3 rounded-full p-2 md:p-5 bg-red-500 text-xl cursor-pointer outline-none hover:shadow-md duration-500 transition-all ease-in-out"
+                    className="absolute p-2 text-xl transition-all duration-500 ease-in-out bg-red-500 rounded-full outline-none cursor-pointer bottom-3 right-3 md:p-5 hover:shadow-md"
                     // onClick={() => deleteImage()}
                   >
                     <MdDeleteOutline className="text-white" />
@@ -97,38 +145,79 @@ const AddMenu = () => {
           </>
         )}
       </div>
-      <div className="w-full flex flex-col md:flex-row items-center gap-3">
-        <div className="w-full py-2 border-b border-gray-300 flex items-center gap-2">
-          <GiTakeMyMoney className="text-gray-600 text-2xl" />
+      <div className="flex flex-col items-center w-full gap-3 md:flex-row">
+        <div className="flex items-center w-full gap-2 py-2 border-b border-gray-300">
+          <GiTakeMyMoney className="text-2xl text-gray-600" />
           <input
             type="text"
             required
             placeholder="Price"
             autoFocus
-            className="h-full w-full  bg-transparent pl-2 text-textColor outline-none border-none placeholder:text-gray-400"
+            className="w-full h-full pl-2 bg-transparent border-none outline-none text-textColor placeholder:text-gray-400"
             value={price}
             onChange={(e) => setPrice(validateNumber(e.target.value))}
           />
         </div>
       </div>
-      <div className="w-full py-3 border-b border-gray-300 flex -tems-center gap-2">
+      <div className="flex w-full gap-2 py-3 border-b border-gray-300 -tems-center">
         <BiFoodMenu className="text-xl text-gray-600" />
         <input
           type="text"
           required
           placeholder="Short Description"
           autoFocus
-          className="h-full w-full  bg-transparent pl-2 text-textColor outline-none border-none placeholder:text-gray-400"
+          className="w-full h-full pl-2 bg-transparent border-none outline-none text-textColor placeholder:text-gray-400"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
       </div>
 
-      <div className="w-full flex items-center justify-center">
+      {/* Addon Input Section */}
+      <div className="flex items-center w-full gap-2 py-2 border-b border-gray-300">
+          <input
+            type="text"
+            required
+            placeholder="Addon Name"
+            className="w-full h-full pl-2 bg-transparent border-none outline-none text-textColor placeholder:text-gray-400"
+            value={addonTitle}
+            onChange={(e) => setaddonTitle(e.target.value)}
+          />
+          <input
+            type="text"
+            required
+            placeholder="Addon Price"
+            className="w-full h-full pl-2 bg-transparent border-none outline-none text-textColor placeholder:text-gray-400"
+            value={addonPrice}
+            onChange={(e) => setaddonPrice(validateNumber(e.target.value))}
+          />
+          <motion.button
+            whileTap={{ scale: 1.1 }}
+            className="px-3 py-1 text-white bg-green-500 rounded"
+            onClick={addAddon}
+          >
+            Add Addon
+          </motion.button>
+        </div>
+
+        {/* Display Addons */}
+        {addons.length > 0 && (
+          <div className="p-4 mt-4 border">
+            <h2 className="mb-2 text-lg font-semibold">Addons:</h2>
+            <ul>
+              {addons.map((addon, index) => (
+                <li key={index}>
+                  {addon.name} - ${addon.price.toFixed(2)}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+      <div className="flex items-center justify-center w-full">
         <motion.button
           whileHover={{ scale: 1.1 }}
-          className="ml-0 flex justify-center items-center gap-2 flex-row-reverse md:ml-auto w-full md:w-auto border-none outline-none rounded bg-orange-500 px-12 py-2 text-lg text-white"
-          // onClick={() => saveItem()}
+          className="flex flex-row-reverse items-center justify-center w-full gap-2 px-12 py-2 ml-0 text-lg text-white bg-orange-500 border-none rounded outline-none md:ml-auto md:w-auto"
+          onClick={() => saveItem()}
         >
           <MdOutlineDataSaverOn /> Save
         </motion.button>

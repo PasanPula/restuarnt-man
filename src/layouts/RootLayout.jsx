@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Outlet } from 'react-router-dom'
 import Header from '../components/Header/Header'
 import { useCartContext } from '../context/CartContext/CartProvider'
@@ -6,11 +6,18 @@ import Cart from '../components/Cart/Cart';
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from 'react-toastify';
 import { useUserContext } from '../context/UserContext/UserProvider';
+import { useMenuContext } from '../context/MenuContext/MenuProvider';
+import { fetchMenuData } from '../api/api';
 
 export const RootLayout = () => {
 
   const [{showCart}] = useCartContext();
   const [{isAdmin, adminMode, isKitchen, kitchenMode}, userDispatch]  = useUserContext();
+  const [{ menuItems }, dispatch] = useMenuContext();
+
+  useEffect(() => {
+    fetchMenuData(dispatch)
+  }, [])
 
   return (
     <>

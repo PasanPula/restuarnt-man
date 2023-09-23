@@ -31,18 +31,18 @@ const Header = () => {
           </motion.div>
         </Link>
 
-        <div className=' flex flex-row gap-3 ' >
+        <div className='flex flex-row gap-3 ' >
         <Navigation/>
 
 
-         {user ? (
+         {/* {user ? ( */}
           <div className={`group flex items-center gap-3 px-3 py-1 rounded-lg`}>
             <motion.div
               whileHover={{ scale: 1.1 }}
               className="flex items-center justify-center "
             >
               <img
-                src={user.photoURL || Avatar}
+                src={user?.photoURL || Avatar}
                 className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-2xl rounded-full cursor-pointer object-contain"
                 alt="profile"
               />
@@ -52,9 +52,9 @@ const Header = () => {
             </motion.div>
             <Dropdown user={user} />
           </div>
-        ) : (
-          <LoginAction text={"Login"} />
-         )}
+        {/* // ) : (
+        //   <LoginAction text={"Login"} />
+        //  )} */}
          </div>
 
 

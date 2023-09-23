@@ -27,21 +27,23 @@ const Navigation = () => {
       className={`flex items-center gap-8`}
     >
 
-    { user &&
-      (<motion.li
+    {/* { user && */}
+      <motion.li
         whileHover={{ scale: 1.1 }}
         className="text-base transition-all duration-100 ease-in-out cursor-pointer md:text-sm lg:text-md text-textColor hover:text-headingColor"
       >
         <Link to={'/'}>Menu</Link>
-      </motion.li>) }
+      </motion.li> 
+      {/* } */}
 
-    { user &&
-      (<motion.li
+    {/* { user && */}
+      <motion.li
         whileHover={{ scale: 1.1 }}
         className="text-base transition-all duration-100 ease-in-out cursor-pointer md:text-sm lg:text-md text-textColor hover:text-headingColor"
       >
         <Link to={'/orders'}>Orders</Link>
-      </motion.li>) }
+      </motion.li>
+      {/* } */}
 
     
     </motion.ul>

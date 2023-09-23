@@ -14,6 +14,7 @@ import NavItem from "./KitchenNavItem";
 import Orders from "../OrderList/OrdersList";
 import OrdersList from "../OrderList/OrdersList";
 import { KitchenPages } from "../../../configs/Constants/Pages";
+import EditMenu from "../../Admin/EditMenu/EditMenu";
 
 const SideNavMenu = ({ activePage, setActivePage, setPageContent, setshowMobileSideNav }) => {
   return (
@@ -58,7 +59,7 @@ const SideNavMenu = ({ activePage, setActivePage, setPageContent, setshowMobileS
       setPageContent={setPageContent}
       setshowMobileSideNav={setshowMobileSideNav}
       pageContent={
-        <div className="flex justify-center w-full tems-center">Orders</div>
+        <EditMenu/>
       }
     />
   </motion.nav>

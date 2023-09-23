@@ -8,6 +8,8 @@ import { emptyCart } from '../../util/utilFunctions';
 import PaymentSelector from './PaymentSelector';
 import CardForm from './CardForm';
 import CheckoutFooter from './CheckoutFooter';
+import { PaymentTypes } from '../../configs/Constants/Types';
+import { placeOrder } from '../../api/api';
 
 
 const CheckoutBody = ({action}) => {
@@ -16,17 +18,22 @@ const CheckoutBody = ({action}) => {
   const [{ menuItems }] = useCartContext();
   const [loading, setLoading] = useState(false);
 
-  const completePayment = () => {
+  const completePayment = async () => {
     if(!checkoutData) return toast.error("Complete payment info")
+
+    const fullOrder = {
+      payment_method : paymentMethod,
+      items : cartItems
+    }
+
     setLoading(true);
+
+    await placeOrder(fullOrder)
+
     setTimeout(async () => {
       setLoading(false);
-      emptyCart(cartItems, menuItems, cartDispatch);
+      // emptyCart(cartItems, menuItems, cartDispatch);
       action(false);
-      toast.success("Order completed successfuly with payment. Thank you for your patronage.", {
-        position: "top-center",
-        autoClose: 6000
-      });
     }, 3000);
   };
 
@@ -36,7 +43,7 @@ const CheckoutBody = ({action}) => {
     <PaymentSelector />
     {/* payment form  */}
     <div className="min-h-[50vh] mt-5">
-      {paymentMethod === "mobile_money" ? <CardForm /> : <CardForm />}
+      {paymentMethod === PaymentTypes.CREDIT_CARD ? <CardForm /> : ''}
       <div className="flex items-center justify-center w-full my-2">
         <p className="text-gray-300">
           Amount Due:{" "}
@@ -53,7 +60,8 @@ const CheckoutBody = ({action}) => {
         >
           {!loading && <BiLock className="" />}
           {!loading ? (
-            "PAY NOW"
+            paymentMethod === PaymentTypes.CREDIT_CARD ?
+            "PAY NOW" : 'Place Order'
           ) : (
             <ImSpinner3 className="animate animate-spin" />
           )}

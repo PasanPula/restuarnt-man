@@ -18,6 +18,8 @@ export default {
         cartBg: "#282a2c",
         cartItem: "#2e3033",
         cartTotal: "#343739",
+        primeGold: '#9B804E',
+        primeGoldDark: '#645332'
       },
       display: ["group-hover"]
     },

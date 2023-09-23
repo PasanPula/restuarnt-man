@@ -1,5 +1,7 @@
 import { toast } from "react-toastify";
 import { MenuTypes, OrderTypes, UserTypes } from "../configs/Constants/ActionTypes";
+import { FaExclamationCircle } from 'react-icons/fa';
+import { MdDone } from 'react-icons/md';
 
 export const getMenuById = (menu, menu_id) => {
   return menu.find((item) => item.id === menu_id);
@@ -65,7 +67,7 @@ export const emptyCart = (
   ) => {
     if (cartItems.length > 0) {
       dispatch({
-        type: "SET_CARTITEMS",
+        type: CartTypes.SET_CART_ITEMS,
         cartItems: [],
       });
       calculateCartTotal(cartItems, menuItems, dispatch);
@@ -76,8 +78,8 @@ export const emptyCart = (
 
 import { MdShoppingBasket } from "react-icons/md";
 import { CartTypes } from "../configs/Constants/ActionTypes";
-import { fetchOrderData } from "../api/api";
 import { OrderStatus } from "../configs/Constants/Types";
+import { fetchOrders } from "../api/api";
 export const addToCart = async (
     cartItems,
     menuItems,
@@ -86,12 +88,12 @@ export const addToCart = async (
     dispatch,
     customizeData
   ) => {
-    if (!user) {
-      toast.error("Please login to add items to cart", {
-        icon: <MdShoppingBasket className="text-2xl text-cartNumBg" />,
-        toastId: "unauthorizedAddToCart",
-      });
-    } else {
+    // if (!user) {
+    //   toast.error("Please login to add items to cart", {
+    //     icon: <MdShoppingBasket className="text-2xl text-cartNumBg" />,
+    //     toastId: "unauthorizedAddToCart",
+    //   });
+    // } else {
       if (cartItems.some((item) => item["menu_id"] === menu_id)) {
         toast.error("Item already in cart", {
           icon: <MdShoppingBasket className="text-2xl text-cartNumBg" />,
@@ -101,7 +103,7 @@ export const addToCart = async (
         const data = {
           item_id: Date.now(),
           menu_id: menu_id,
-          uid: user.uid,
+          // uid: user.uid,
           qty: customizeData.quantity,
           selectedOptions: customizeData.selectedOptions,
           comment: customizeData.comment,
@@ -116,7 +118,7 @@ export const addToCart = async (
         console.log(crtItems)
         calculateCartTotal(crtItems, menuItems, dispatch);
       }
-    }
+    // }
   };
 
 
@@ -202,37 +204,23 @@ export const logout = async (user, userDispatch, cartDispatch, navigate) => {
   }
 };
 
-export const getOrders = async (orderDispatch) => {
-      const orderData = await  fetchOrderData();
-      if(orderData){
-        orderDispatch({
-          type: OrderTypes.SET_ORDERS,
-          orders: orderData,
-        });
-
-        const completedArr = OrderFilter(orderData,OrderStatus.COMPLETED);
-        orderDispatch({
-          type: OrderTypes.SET_COMPLETED_ORDERS,
-          completedOrders: completedArr,
-        });
-
-        const pendingArr = OrderFilter(orderData,OrderStatus.PENDING);
-        orderDispatch({
-          type: OrderTypes.SET_PENDING_ORDERS,
-          pendingOrders: pendingArr,
-        });
-
-        const processArr = OrderFilter(orderData,OrderStatus.PROCESSING);
-        orderDispatch({
-          type: OrderTypes.SET_PRCOESSING_ORDERS,
-          processingOrders: processArr,
-        });
-      }
-}
-
-function OrderFilter(Orders,type){
+export function OrderFilter(Orders,type){
+  console.log(Orders,type)
   const filteredArr = Orders.filter((order) => {
-    return order.order_status == type;
+    return order.order_status.toLowerCase() == type;
   });
   return filteredArr;
+}
+
+export function toastError(msg,id) {
+  toast.error(msg, {
+        icon: <FaExclamationCircle className="text-2xl text-cartNumBg" />,
+        toastId: id,
+  });
+}
+export function toastSucess(msg,id) {
+  toast.error(msg, {
+        icon: <MdDone className="text-2xl text-green-600" />,
+        toastId: id,
+  });
 }

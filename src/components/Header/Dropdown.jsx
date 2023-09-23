@@ -14,6 +14,7 @@ const Dropdown = ({user}) => {
   const navigate = useNavigate();
   const [{isAdmin, isKitchen}, userDispatch]  = useUserContext();
   const [{cartItems}, cartDispatch]  = useUserContext();
+  
 
   return (
     <motion.div
@@ -23,35 +24,38 @@ const Dropdown = ({user}) => {
     className="absolute right-0 flex-col hidden rounded-lg shadow-xl group-hover:flex w-54 bg-gray-50 top-16"
   >
     <p className="flex items-center gap-3 px-10 py-2 text-base capitalize transition-all duration-100 ease-in-out bg-slate-100 text-headingColor">
-      {user?.displayName || user?.email}
+      {user?.displayName || user?.email || 'User'}
     </p>
     {isAdmin && (
-      <Link
+      <button
       className="flex items-center gap-3 px-10 py-2 text-base transition-all duration-100 ease-in-out cursor-pointer hover:bg-slate-100 text-textColor"
-      to={"/dashboard"}
-      onClick={() => ToggleAdminMode(userDispatch, true)}
+      onClick={() =>{ ToggleAdminMode(userDispatch, true)
+        navigate('/dashboard', { replace: true });
+      }}
       >
         Administrator
         <RiAdminLine />
-      </Link>
+      </button>
     )}
     {isKitchen && (
-      <Link
+      <button
       className="flex items-center gap-3 px-10 py-2 text-base transition-all duration-100 ease-in-out cursor-pointer hover:bg-slate-100 text-textColor"
-      to={"/kitchen"}
-      onClick={() => ToggleKitchenMode(userDispatch, true)}
+      onClick={() =>{
+         ToggleKitchenMode(userDispatch, true)
+         navigate('/kitchen', { replace: true });
+        }}
       >
         Kitchen
         <PiCookingPot />
-      </Link>
+      </button>
     )}
-    <p
+    {/* <p
       className="flex items-center gap-3 px-10 py-2 text-base transition-all duration-100 ease-in-out cursor-pointer hover:bg-slate-100 text-textColor"
       onClick={() => logout(user, userDispatch,cartDispatch, navigate)}
     >
       Logout
       <MdLogout />
-    </p>
+    </p> */}
   </motion.div>
   )
 }

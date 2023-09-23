@@ -58,12 +58,12 @@ const MenuPopup = ({item,setShowCustomizePopup}) => {
     <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="bg-white rounded-lg p-4 relative z-10 w-[90%] md:w-[50%] max-h-[80vh] md:max-h-[90vh] overflow-y-auto">
           <button
-              className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
+              className="absolute text-gray-600 top-2 right-2 hover:text-gray-800"
               onClick={() => setShowCustomizePopup(false)}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
+                className="w-6 h-6"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -76,19 +76,19 @@ const MenuPopup = ({item,setShowCustomizePopup}) => {
                 />
               </svg>
             </button>
-            <h3 className="text-lg font-medium mb-2">Customize Order</h3>
-            <p className="text-sm text-gray-500 mb-4">Select your options below:</p>
+            <h3 className="mb-2 text-lg font-medium">Customize Order</h3>
+            <p className="mb-4 text-sm text-gray-500">Select your options below:</p>
 
              {/* Food image, name, and price */}
              <div className="mb-4">
               <img
                 src={r4}
                 alt={description}
-                className="w-40 h-40 object-contain mx-auto mb-2"
+                className="object-contain w-40 h-40 mx-auto mb-2"
               />
-              <p className="text-lg text-textColor font-semibold text-center">{title}</p>
-              <p className="text-base font-semibold text-headingColor text-center">
-                <span className="text-sm text-red-600">Rs.</span> {price}
+              <p className="text-lg font-semibold text-center text-textColor">{title}</p>
+              <p className="text-base font-semibold text-center text-headingColor">
+                <span className="text-sm text-primeGold">Rs.</span> {price}
               </p>
             </div>
 
@@ -139,7 +139,7 @@ const MenuPopup = ({item,setShowCustomizePopup}) => {
               </label>
               <textarea
                 id="comment"
-                className="w-full border rounded-lg p-2"
+                className="w-full p-2 border rounded-lg"
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
               />
@@ -153,7 +153,7 @@ const MenuPopup = ({item,setShowCustomizePopup}) => {
                   {customize.map((option,index) => (
                     <label
                       key={index}
-                      className="block text-sm bg-gray-100 hover:bg-gray-200 p-2 rounded-lg cursor-pointer"
+                      className="block p-2 text-sm bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200"
                     >
                       <input
                         type="checkbox"
@@ -169,13 +169,13 @@ const MenuPopup = ({item,setShowCustomizePopup}) => {
               </div>
             )}
 
-            <div className=" flex flex-col ">
-                <p className="text-lg font-semibold text-headingColor mb-2">
-                     Total: <span className="text-red-600">Rs. {totalValue}</span>
+            <div className="flex flex-col ">
+                <p className="mb-2 text-lg font-semibold text-headingColor">
+                     Total: <span className="text-primeGold">Rs. {totalValue}</span>
                  </p>
 
                 <button
-                    className="bg-red-600 text-white rounded-lg px-4 py-2 hover:bg-red-800 flex flex-row justify-center p-4"
+                    className="flex flex-row justify-center p-4 px-4 py-2 text-white rounded-lg bg-primeGold hover:bg-primeGoldDark"
                     onClick={handleAddToCart}
                 >
                     <MdAddShoppingCart className="text-white md:text-xl" />
@@ -185,7 +185,7 @@ const MenuPopup = ({item,setShowCustomizePopup}) => {
              
           </div>
           <div
-            className="absolute inset-0 bg-gray-900/50 opacity-50 z-49"
+            className="absolute inset-0 opacity-50 bg-gray-900/50 z-49"
             onClick={() => setShowCustomizePopup(false)}
           ></div>
         </div>

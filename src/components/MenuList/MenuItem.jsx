@@ -60,7 +60,7 @@ const MenuItem = ({item, col, admin}) => {
         <motion.div
           whileTap={{ scale: 1.1 }}
           whileHover={{ scale: 1.2 }}
-          className="flex items-center justify-center w-8 h-8 bg-red-600 rounded-full cursor-pointer md:w-10 md:h-10"
+          className="flex items-center justify-center w-8 h-8 rounded-full cursor-pointer bg-primeGold md:w-10 md:h-10"
           onClick={() => {
             setShowCustomizePopup(true)
         }}
@@ -77,7 +77,7 @@ const MenuItem = ({item, col, admin}) => {
       <p className="mt-1 text-sm text-gray-500">{description} </p>
       <div className="flex items-center justify-between gap-8 ">
         <p className="text-base font-semibold text-headingColor">
-          <span className="text-sm text-red-600">Rs.</span> {price}
+          <span className="text-sm text-[#9B804E]">Rs.</span> {price}
         </p>
       </div>
     </div>
