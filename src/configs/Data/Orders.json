@@ -1,0 +1,305 @@
+[
+    {
+        "order_id": "12345",
+        "date": "2023-09-20",
+        "customer_id": "JohnDoe123",
+        "customer_name": "John Doe",
+        "customer_phone": "+1 (123) 456-7890",
+        "customer_room_no": "02",
+        "order_status": "pending",
+        "items": [
+            {
+                "item_id": 2,
+                "title": "Spicy Chicken Curry",
+                "quantity": 2,
+                "price_per_item": "LKR 750",
+                "total_price": "LKR 1500"
+            },
+            {
+                "item_id": 7,
+                "title": "Coconut Sambol",
+                "quantity": 1,
+                "price_per_item": "LKR 150",
+                "total_price": "LKR 150"
+            },
+            {
+                "item_id": 14,
+                "title": "Wood Apple Smoothie",
+                "quantity": 3,
+                "price_per_item": "LKR 300",
+                "total_price": "LKR 900"
+            }
+        ],
+        "subtotal": "LKR 2550",
+        "tax": "LKR 255",
+        "total": "LKR 2805",
+        "special_instructions": "Extra spicy chicken curry, please!",
+        "payment_method": "Credit Card"
+    },
+    {
+        "order_id": "54321",
+        "date": "2023-09-21",
+        "customer_id": "JaneSmith456",
+        "customer_name": "Jane Smith",
+        "customer_phone": "+1 (987) 654-3210",
+        "customer_room_no": "05",
+        "order_status": "processing",
+        "items": [
+            {
+                "item_id": 12,
+                "title": "Sri Lankan Sausage Curry",
+                "quantity": 1,
+                "price_per_item": "LKR 450",
+                "total_price": "LKR 450"
+            },
+            {
+                "item_id": 19,
+                "title": "Deviled Prawns",
+                "quantity": 2,
+                "price_per_item": "LKR 850",
+                "total_price": "LKR 1700"
+            },
+            {
+                "item_id": 28,
+                "title": "Jackfruit Curry",
+                "quantity": 1,
+                "price_per_item": "LKR 350",
+                "total_price": "LKR 350"
+            },
+            {
+                "item_id": 9,
+                "title": "Sri Lankan Tea",
+                "quantity": 4,
+                "price_per_item": "LKR 100",
+                "total_price": "LKR 400"
+            }
+        ],
+        "subtotal": "LKR 3150",
+        "tax": "LKR 315",
+        "total": "LKR 3465",
+        "special_instructions": "No spice in the dosai, please!",
+        "payment_method": "Cash on Delivery"
+    },
+    {
+        "order_id": "78901",
+        "date": "2023-09-22",
+        "customer_id": "MariaRodriguez789",
+        "customer_name": "Maria Rodriguez",
+        "customer_phone": "+1 (555) 123-4567",
+        "customer_room_no": "03",
+        "order_status": "completed",
+        "items": [
+            {
+                "item_id": 4,
+                "title": "Seafood Rice and Curry",
+                "quantity": 1,
+                "price_per_item": "LKR 950",
+                "total_price": "LKR 950"
+            },
+            {
+                "item_id": 13,
+                "title": "Fish Ambul Thiyal",
+                "quantity": 2,
+                "price_per_item": "LKR 850",
+                "total_price": "LKR 1700"
+            },
+            {
+                "item_id": 26,
+                "title": "Sri Lankan Black Pork Curry",
+                "quantity": 1,
+                "price_per_item": "LKR 950",
+                "total_price": "LKR 950"
+            }
+        ],
+        "subtotal": "LKR 3600",
+        "tax": "LKR 360",
+        "total": "LKR 3960",
+        "special_instructions": "Extra spice in the seafood curry, please!",
+        "payment_method": "Credit Card"
+    },
+    {
+        "order_id": "24680",
+        "date": "2023-09-23",
+        "customer_id": "DavidWilliams246",
+        "customer_name": "David Williams",
+        "customer_phone": "+1 (111) 222-3333",
+        "customer_room_no": "01",
+        "order_status": "processing",
+        "items": [
+            {
+                "item_id": 5,
+                "title": "Mutton Biryani",
+                "quantity": 2,
+                "price_per_item": "LKR 800",
+                "total_price": "LKR 1600"
+            },
+            {
+                "item_id": 10,
+                "title": "Pineapple Curry",
+                "quantity": 1,
+                "price_per_item": "LKR 400",
+                "total_price": "LKR 400"
+            },
+            {
+                "item_id": 18,
+                "title": "Mango Lassi",
+                "quantity": 3,
+                "price_per_item": "LKR 200",
+                "total_price": "LKR 600"
+            }
+        ],
+        "subtotal": "LKR 2600",
+        "tax": "LKR 260",
+        "total": "LKR 2860",
+        "special_instructions": "Extra mango lassi, please!",
+        "payment_method": "Cash on Delivery"
+    },
+    {
+        "order_id": "11111",
+        "date": "2023-09-24",
+        "customer_id": "SarahSmith111",
+        "customer_name": "Sarah Smith",
+        "customer_phone": "+1 (555) 111-2222",
+        "customer_room_no": "07",
+        "order_status": "pending",
+        "items": [
+            {
+                "item_id": 3,
+                "title": "Vegetable Kottu Roti",
+                "quantity": 2,
+                "price_per_item": "LKR 550",
+                "total_price": "LKR 1100"
+            },
+            {
+                "item_id": 15,
+                "title": "Ceylonese Roti",
+                "quantity": 4,
+                "price_per_item": "LKR 200",
+                "total_price": "LKR 800"
+            },
+            {
+                "item_id": 21,
+                "title": "Lamb Kofta",
+                "quantity": 1,
+                "price_per_item": "LKR 800",
+                "total_price": "LKR 800"
+            }
+        ],
+        "subtotal": "LKR 2700",
+        "tax": "LKR 270",
+        "total": "LKR 2970",
+        "special_instructions": "No onions in the kottu roti, please!",
+        "payment_method": "Credit Card"
+    },
+    {
+        "order_id": "22222",
+        "date": "2023-09-25",
+        "customer_id": "MichaelBrown222",
+        "customer_name": "Michael Brown",
+        "customer_phone": "+1 (333) 444-5555",
+        "customer_room_no": "09",
+        "order_status": "completed",
+        "items": [
+            {
+                "item_id": 1,
+                "title": "Classic Pork Fried Rice",
+                "quantity": 3,
+                "price_per_item": "LKR 650",
+                "total_price": "LKR 1950"
+            },
+            {
+                "item_id": 20,
+                "title": "Sri Lankan Roti with Chicken Curry",
+                "quantity": 2,
+                "price_per_item": "LKR 700",
+                "total_price": "LKR 1400"
+            },
+            {
+                "item_id": 30,
+                "title": "Sri Lankan Avocado Salad",
+                "quantity": 1,
+                "price_per_item": "LKR 300",
+                "total_price": "LKR 300"
+            }
+        ],
+        "subtotal": "LKR 3650",
+        "tax": "LKR 365",
+        "total": "LKR 4015",
+        "special_instructions": "Extra avocado salad dressing, please!",
+        "payment_method": "Cash on Delivery"
+    },
+    {
+        "order_id": "33333",
+        "date": "2023-09-26",
+        "customer_id": "EmilyJohnson333",
+        "customer_name": "Emily Johnson",
+        "customer_phone": "+1 (888) 777-5555",
+        "customer_room_no": "11",
+        "order_status": "processing",
+        "items": [
+            {
+                "item_id": 6,
+                "title": "Egg Fried Rice",
+                "quantity": 2,
+                "price_per_item": "LKR 500",
+                "total_price": "LKR 1000"
+            },
+            {
+                "item_id": 24,
+                "title": "Sri Lankan Cuttlefish Curry",
+                "quantity": 1,
+                "price_per_item": "LKR 900",
+                "total_price": "LKR 900"
+            },
+            {
+                "item_id": 29,
+                "title": "Mango Chutney",
+                "quantity": 3,
+                "price_per_item": "LKR 150",
+                "total_price": "LKR 450"
+            }
+        ],
+        "subtotal": "LKR 2350",
+        "tax": "LKR 235",
+        "total": "LKR 2585",
+        "special_instructions": "Extra mango chutney, please!",
+        "payment_method": "Credit Card"
+    },
+    {
+        "order_id": "44444",
+        "date": "2023-09-27",
+        "customer_id": "DavidWilliams444",
+        "customer_name": "David Williams",
+        "customer_phone": "+1 (111) 222-3333",
+        "customer_room_no": "08",
+        "order_status": "pending",
+        "items": [
+            {
+                "item_id": 17,
+                "title": "Sri Lankan Eggplant Curry",
+                "quantity": 2,
+                "price_per_item": "LKR 350",
+                "total_price": "LKR 700"
+            },
+            {
+                "item_id": 25,
+                "title": "Sri Lankan Roti with Chicken Curry",
+                "quantity": 1,
+                "price_per_item": "LKR 700",
+                "total_price": "LKR 700"
+            },
+            {
+                "item_id": 11,
+                "title": "Lentil Curry (Dhal)",
+                "quantity": 3,
+                "price_per_item": "LKR 250",
+                "total_price": "LKR 750"
+            }
+        ],
+        "subtotal": "LKR 2150",
+        "tax": "LKR 215",
+        "total": "LKR 2365",
+        "special_instructions": "No spice in the eggplant curry, please!",
+        "payment_method": "Cash on Delivery"
+    }    
+]
