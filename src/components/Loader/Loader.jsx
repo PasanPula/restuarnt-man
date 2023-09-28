@@ -9,13 +9,13 @@ const Loader = ({progress, className}) => {
       disabled
       type="button"
       className={`py-2.5 px-5 mr-2 text-sm font-medium ${
-        className ? className : 'text-orange-500'
-      } bg-transparent rounded-lg inline-flex items-center gap-2 cursor-pointer border-2 border-orange-500 hover:bg-orange-500 hover:text-white transition-all duration-300`}
+        className ? className : 'text-primeGold'
+      } bg-transparent rounded-lg inline-flex items-center gap-2 cursor-pointer border-2 border-primeGold hover:bg-primeGold hover:text-white transition-all duration-300`}
     >
       <svg
         role="status"
-        className={`inline w-4 h-4 mr-2 text-gray-200 animate-spin dark:${
-          className ? className : 'text-orange-500'
+        className={`inline w-4 h-4 mr-2 text-primeGold animate-spin dark:${
+          className ? className : 'text-primeGold0'
         }`}
         viewBox="0 0 100 101"
         fill="none"

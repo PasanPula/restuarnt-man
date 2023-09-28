@@ -30,7 +30,7 @@ const Dropdown = ({user}) => {
       <button
       className="flex items-center gap-3 px-10 py-2 text-base transition-all duration-100 ease-in-out cursor-pointer hover:bg-slate-100 text-textColor"
       onClick={() =>{ ToggleAdminMode(userDispatch, true)
-        navigate('/dashboard', { replace: true });
+        navigate('../dashboard', { replace: true });
       }}
       >
         Administrator
@@ -40,9 +40,8 @@ const Dropdown = ({user}) => {
     {isKitchen && (
       <button
       className="flex items-center gap-3 px-10 py-2 text-base transition-all duration-100 ease-in-out cursor-pointer hover:bg-slate-100 text-textColor"
-      onClick={() =>{
-         ToggleKitchenMode(userDispatch, true)
-         navigate('/kitchen', { replace: true });
+      onClick={() =>{ToggleKitchenMode(userDispatch, true)
+         navigate('../kitchen', { replace: true });
         }}
       >
         Kitchen

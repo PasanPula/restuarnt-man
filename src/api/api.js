@@ -2,7 +2,7 @@ import { MenuTypes, OrderTypes } from "../configs/Constants/ActionTypes";
 import Menu from '../configs/Data/Food.json'
 import User from '../configs/Data/User.json'
 import Orders from '../configs/Data/Orders.json'
-import { BASE_URL } from "../configs/Constants/Env";
+import { ADDON, BASE_URL } from "../configs/Constants/Env";
 import axios from "axios";
 import { MENU_LISt, ORDERS } from "../configs/Constants/Env";
 import { OrderFilter, toastError, toastSucess } from "../util/utilFunctions";
@@ -32,13 +32,47 @@ export const fetchMenuData = async (dispatch) => {
 };
 
 export const addMenuItem = async (dish) => {
-    await axios.post(BASE_URL+MENU_LISt,dish).then((data) => {
-        toastSucess('sucess','apiSucess');
+   return await axios.post(BASE_URL+MENU_LISt,dish).then((data) => {
+    let reposnseData = data.data;
+    if(reposnseData.success){
+        toastSucess('Dish saved successfully!','apiSucess');
         return true;
+    }else{
+        toastError('Dish creation failed!','apifail');
+        return false;
+    }
     }).catch((error) => {
         toastError(error,'apifail')
     }) 
 };
+
+
+export const updateMenuItem = async (dish,dishID) => {
+    return await axios.put(BASE_URL+MENU_LISt+'/'+dishID,dish).then((data) => {
+        let reposnseData = data.data;
+        if(reposnseData.success){
+            toastSucess( "Menu Item updated successfuly.",'apiSucess')
+            return true;
+        }else {
+            toastError('Menu Item updated Failed! Try Again Later','apifail')
+        }
+    }).catch((error) => {
+        toastError(error,'apifail')
+    }) 
+};
+
+export const deleteMenuItem = async (dishId) => {
+    await axios.delete(BASE_URL+ MENU_LISt +'/'+dishId).then((data) => {
+        let reposnseData = data.data;
+        if(reposnseData.success){
+            toastSucess('Menu Item deleted Sucessfully','apiSucess')
+        }else {
+            toastError('Menu Item deletion Failed! Try Again Later','apifail')
+        }
+    }).catch((error) => {
+        toastError(error,'apifail')
+    }) 
+}
 
 export const placeOrder = async (order) => {
     await axios.post(BASE_URL+ORDERS,order).then((data) => {
@@ -92,7 +126,6 @@ export const fetchOrders = async (orderDispatch) => {
 export const updateSingleOrder = async (order,orderId) => {
     await axios.put(BASE_URL+ORDERS+'/'+orderId,order).then((data) => {
         let reposnseData = data.data;
-        console.log(reposnseData)
         if(reposnseData.success){
             toastSucess( "Order updated successfuly.",'apiSucess')
         }else {
@@ -103,11 +136,11 @@ export const updateSingleOrder = async (order,orderId) => {
     }) 
 };
 
-export const cancelOrder = async (orderId) => {
+export const deleteOrder = async (orderId,msg) => {
     await axios.delete(BASE_URL+ORDERS+'/'+orderId).then((data) => {
         let reposnseData = data.data;
         if(reposnseData.success){
-            toastSucess( "Order Canceled successfuly.",'apiSucess')
+            toastSucess( msg,'apiSucess')
         }else {
             toastError('Order Failed! Try Again Later','apifail')
         }
@@ -116,6 +149,20 @@ export const cancelOrder = async (orderId) => {
     }) 
 };
 
+
+export const addAddon = async (addon) => {
+    return await axios.post(BASE_URL+ADDON,addon).then((data) => {
+        let reposnseData = data.data;
+        if(reposnseData.success){
+            return reposnseData.data;
+        } else {
+            toastSucess('Fail to Create Addon','apifail');
+        }
+        return false;
+    }).catch((error) => {
+        toastError(error,'apifail')
+    }) 
+};
 
 // export const fetchOrderData = async () => {
 //     return Orders;

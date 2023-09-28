@@ -1,8 +1,9 @@
 export const OrderStatus = {
-    ORDER : "order",
-    PENDING : "pending",
-    PROCESSING : "processing",
-    COMPLETED : "completed"
+    ORDER : "ORDER",
+    PENDING : "PENDING",
+    PROCESSING : "PROCESSING",
+    CANCELLED : "CANCELLED",
+    COMPLETED : "COMPLETED"
 }
 export const PaymentTypes = {
     CASH : "CASH",

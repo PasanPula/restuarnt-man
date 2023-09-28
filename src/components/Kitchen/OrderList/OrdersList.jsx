@@ -4,6 +4,7 @@ import { FaSearch } from "react-icons/fa";
 import { useOrderContext } from '../../../context/OrderContext/OrderProvider';
 import { KitchenPages } from '../../../configs/Constants/Pages';
 import Order from './Order';
+import NotFound from '../../NotFound/NotFound';
 
 const OrdersList = ({page}) => {
     // const [{ users }, userDispatch] = useUserContext();
@@ -14,7 +15,7 @@ const OrdersList = ({page}) => {
 
     useEffect(() => {
       setOrder();
-    }, [page])
+    }, [page,pendingOrders,processingOrders,completedOrders])
     
     const setOrder  = () => {
       switch (page) {
@@ -60,17 +61,19 @@ const OrdersList = ({page}) => {
         value={query}
         onChange={(e) => searchOrders(e)}
       />
-      <button className="flex items-center justify-center gap-3 px-4 py-2 font-bold text-orange-700 rounded-lg">
+      <button className="flex items-center justify-center gap-3 px-4 py-2 font-bold rounded-lg text-primeGold">
         <FaSearch />
       </button>
     </div>
     <div className="grid w-full grid-cols-1 gap-1">
-      {
-        filteredOrders.map((orderItem,index) => (
-          <Order key={index} item ={orderItem} />
-        ))
-      }
-    </div>
+  {filteredOrders.length ? (
+    filteredOrders.map((orderItem, index) => (
+      <Order key={index} item={orderItem} />
+    ))
+  ) : (
+    <NotFound text="No Orders Available" />
+  )}
+</div>
   </div>
   )
 }

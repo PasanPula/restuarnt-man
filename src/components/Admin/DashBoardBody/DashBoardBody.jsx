@@ -24,7 +24,7 @@ const DashBoardBody = ({ pageTitle, Element, setshowMobileSideNav }) => {
 
       {/* home button */}
       <Link to="/" onClick={() => ToggleAdminMode(userdispatch, false)}>
-        <button className="flex items-center justify-center gap-3 px-4 py-2 font-bold text-orange-700 rounded-lg ">
+        <button className="flex items-center justify-center gap-3 px-4 py-2 font-bold rounded-lg text-primeGold ">
           <MdHome className="text-4xl" />
         </button>
       </Link>

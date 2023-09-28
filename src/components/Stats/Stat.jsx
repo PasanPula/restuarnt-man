@@ -45,12 +45,12 @@ const Stat = () => {
             }`}
           >
             <div className="flex items-center">
-              <div className="mr-4 text-3xl text-blue-600">
+              <div className="mr-4 text-3xl text-primeGold">
                 {React.createElement(stat.icon)}
               </div>
               <div>
                 <h3 className="text-xl font-semibold text-gray-800">{stat.title}</h3>
-                <p className="text-3xl mt-2 font-semibold">
+                <p className="mt-2 text-3xl font-semibold">
                   {stat.title === 'Total Revenue' || stat.title === 'Average Order Value'
                     ? formatCurrency(stat.value)
                     : stat.title === 'Profit Margin'

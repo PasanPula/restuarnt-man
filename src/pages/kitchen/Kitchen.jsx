@@ -37,11 +37,10 @@ useEffect(() => {
 
   return (
     <>
-    { showLoader ? <Loader progress = {"Fetching Orders....."} />  :
     <div className="flex items-start w-full h-screen gap-2">
-    <KitchenSideNav showMobileSideNav={showMobileSideNav} setshowMobileSideNav={setshowMobileSideNav}  activePage={activePage} setActivePage={setActivePage} setPageContent = {setElement} />
-    <KitchenDashBoardBody setshowMobileSideNav={setshowMobileSideNav} pageTitle={activePage} Element = {element} />
-    </div> }
+    <KitchenSideNav showLoader={showLoader} showMobileSideNav={showMobileSideNav} setshowMobileSideNav={setshowMobileSideNav}  activePage={activePage} setActivePage={setActivePage} setPageContent = {setElement} />
+    <KitchenDashBoardBody showLoader={showLoader} setshowMobileSideNav={setshowMobileSideNav} pageTitle={activePage} Element = {element} />
+    </div> 
    </>
   )
 }

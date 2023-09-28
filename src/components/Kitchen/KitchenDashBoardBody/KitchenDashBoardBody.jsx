@@ -5,12 +5,35 @@ import { useUserContext } from '../../../context/UserContext/UserProvider';
 import { MdHome } from "react-icons/md";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import { motion } from 'framer-motion';
+import Skeleton from 'react-loading-skeleton';
 
-const KitchenDashBoardBody = ({ pageTitle, Element, setshowMobileSideNav }) => {
+const KitchenDashBoardBody = ({ showLoader,pageTitle, Element, setshowMobileSideNav }) => {
 
   const [{user}, userdispatch] = useUserContext()
 
   return (
+    <>
+     { showLoader ? 
+       <div className="flex flex-col w-full md:w-[80%] h-screen px-2">
+       <div className="flex justify-between w-full px-6 pt-6 pb-2 text-xl font-bold text-gray-600 border-b-2 border-orange-200">
+         <div className="flex items-center justify-center md:hidden">
+           <Skeleton width={40} height={40} />
+         </div>
+         <div className='text-center'>
+           <Skeleton width={100} height={20} />
+         </div>
+         <div>
+           <button className="flex items-center justify-center gap-3 font-bold rounded-lg text-primeGold">
+             <Skeleton width={30} height={30} />
+           </button>
+         </div>
+       </div>
+       <div className="flex-1 mx-6 my-2 overflow-y-scroll border-8 border-gray-200 border-dotted rounded-xl">
+         {/* Placeholder for orders content */}
+         <Skeleton count={10} height={50} />
+       </div>
+     </div>
+     : 
     <div className="flex flex-col w-full md:w-[80%] h-screen px-2">
     <div className="flex justify-between w-full px-6 pt-6 pb-2 text-xl font-bold text-gray-600 border-b-2 border-orange-200">
       <motion.div
@@ -23,13 +46,13 @@ const KitchenDashBoardBody = ({ pageTitle, Element, setshowMobileSideNav }) => {
        <div className='text-center ' >{pageTitle} Orders</div>
       {/* home button */}
       <Link to="/" onClick={() => ToggleKitchenMode(userdispatch, false)}>
-        <button className="flex items-center justify-center gap-3 font-bold text-orange-700 rounded-lg ">
+        <button className="flex items-center justify-center gap-3 font-bold rounded-lg text-primeGold ">
           <MdHome className="text-4xl" />
         </button>
       </Link>
     </div>
     <div className="flex-1 mx-6 my-2 overflow-y-scroll border-8 border-gray-200 border-dotted rounded-xl">{Element}</div>
-  </div>
+  </div> } </>
   )
 }
 

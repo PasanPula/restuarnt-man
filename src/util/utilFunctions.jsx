@@ -79,7 +79,7 @@ export const emptyCart = (
 import { MdShoppingBasket } from "react-icons/md";
 import { CartTypes } from "../configs/Constants/ActionTypes";
 import { OrderStatus } from "../configs/Constants/Types";
-import { fetchOrders } from "../api/api";
+import { deleteMenuItem, fetchOrders } from "../api/api";
 export const addToCart = async (
     cartItems,
     menuItems,
@@ -143,7 +143,7 @@ export function handleUserLogin(userData,userDispatch) {
   localStorage.setItem("user", JSON.stringify(userData));
 }
 
-export const deleteFood = (
+export const deleteFood = async (
   menuItem,
   menuItems,
   dispatch
@@ -157,7 +157,7 @@ export const deleteFood = (
     type: MenuTypes.SET_MENU,
     menuItems
   })
-  toast.success("Menu Item deleted successfully");
+  await deleteMenuItem(menuItem._id)
 };
 
 
@@ -204,9 +204,21 @@ export const logout = async (user, userDispatch, cartDispatch, navigate) => {
 
 export function OrderFilter(Orders,type){
   const filteredArr = Orders.filter((order) => {
-    return order.order_status.toLowerCase() == type;
+    return order.order_status == type;
   });
   return filteredArr;
+}
+
+export function getOrderPrice(order){
+  let val = 0;
+  console.log(order)
+  order.items.map((ord) => {
+      val += parseInt(ord.qty) * parseInt(ord.item_id.price);
+      ord.selectedOptions.map((option)=> {
+          val += parseInt(option.price);
+      })
+  });
+  return val;
 }
 
 export function toastError(msg,id) {
@@ -217,7 +229,6 @@ export function toastError(msg,id) {
 }
 export function toastSucess(msg,id) {
   toast.success(msg, {
-        icon: <MdDone className="text-2xl text-green-600" />,
         toastId: id,
   });
 }

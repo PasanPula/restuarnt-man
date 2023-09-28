@@ -7,8 +7,7 @@ import { ToggleAdminMode } from '../../../util/utilFunctions';
 import SideNavMenu from './SideNavMenu';
 import { logout } from '../../../util/utilFunctions';
 import { MdOutlineRestaurantMenu } from "react-icons/md";
-
-
+import logo from '../../../assets/logo2.png'
 
 
 const SideNav = ({activePage,setActivePage,setPageContent, showMobileSideNav, setshowMobileSideNav}) => {
@@ -17,7 +16,7 @@ const SideNav = ({activePage,setActivePage,setPageContent, showMobileSideNav, se
     const navigate = useNavigate();
 
   return (
-    <div className={` md:flex flex-col ${showMobileSideNav ? 'absolute z-50 backdrop-blur-sm flex' : " hidden " }  w-full md:backdrop-blur-none md:relative md:w-[20%] bg-orange-600 text-orange-50 px-3 py-4 justify-center items-center h-full`} >
+    <div className={` md:flex flex-col ${showMobileSideNav ? 'absolute z-50 backdrop-blur-sm flex' : " hidden " }  w-full md:backdrop-blur-none md:relative md:w-[20%] bg-primeGold text-orange-50 px-3 py-4 justify-center items-center h-full`} >
     
     <motion.div
         whileTap={{ scale: 0.9 }}
@@ -40,10 +39,12 @@ const SideNav = ({activePage,setActivePage,setPageContent, showMobileSideNav, se
       <Link
         onClick={() => ToggleAdminMode(userDispatch, false)}
         to={"/"}
-        className="flex items-center justify-center w-full pb-8 ml-1"
+        className="flex flex-col items-center justify-center w-full pb-8 ml-1"
       >
+         <img className='w-[60%] ' src={logo}></img>
+         <br/>
         <p className="pl-1 text-xl font-bold text-center no-underline text-orange-50 hover:text-orange-100">
-         River&apos;s&nbsp;Edge <br/>Administrator
+         Administrator
         </p>
       </Link>
     </motion.div>

@@ -57,7 +57,7 @@ const SideNavMenu = ({ activePage, setActivePage, setPageContent, setshowMobileS
       setPageContent={setPageContent}
       setshowMobileSideNav={setshowMobileSideNav}
       pageContent={
-        <div className="flex justify-center w-full tems-center">Orders</div>
+        <Orders/>
       }
     />
   </motion.nav>

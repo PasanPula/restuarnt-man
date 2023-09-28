@@ -14,10 +14,6 @@ const MenuList = () => {
   const [scrollValue, setScrollValue] = useState(0);
   const [{ menuItems }, dispatch] = useMenuContext();
 
-    useEffect(() => {
-      fetchMenuData(dispatch)
-    }, [])
-
   return (
     <section className="w-full my-5" id="menu">
       
@@ -36,8 +32,8 @@ const MenuList = () => {
     >
       <MenuButton category={{id: 666, name: "Menu", urlParam: "all", icon: <BiRestaurant />}} filter = {filter} setFilter = {setFilter} />
         {
-            MenuCategories.map((category) =>{
-                return <MenuButton key = {category.id} category = {category} filter = {filter} setFilter = {setFilter} />
+            MenuCategories.map((category,index) =>{
+                return <MenuButton key = {index} category = {category} filter = {filter} setFilter = {setFilter} />
             })
         }
     </motion.div>

@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { MdCancel, MdCheck,MdDeleteForever } from 'react-icons/md';
 import { useMenuContext } from '../../../context/MenuContext/MenuProvider';
-import { fetchOrders } from '../../../api/api';
+import { deleteOrder, fetchOrders, updateSingleOrder } from '../../../api/api';
 import { useOrderContext } from '../../../context/OrderContext/OrderProvider';
+import { OrderStatus } from '../../../configs/Constants/Types';
 
 const Order = ({item}) => {
   const [accepted, setAccepted] = useState(false);
@@ -10,20 +11,43 @@ const Order = ({item}) => {
   const [{menuItems}] = useMenuContext()
   const [{orders},orderDispatch] = useOrderContext();
 
-  const handleAcceptClick = async () => {
-    // item.order_status = 'CONFIRMED'
-    // await updateOrder(item);
-    // await fetchOrders(orderDispatch);
-    // setAccepted(true);
+  const handleOrderStatus = async (status) => {
+
+    console.log('auto triggers')
+    const updateOrder ={
+      "payment_method" : item.payment_method,
+      "Status" : status,
+      "items" : []
+    }
+
+    item.items.map((itm) => {
+      let cpy  = {
+        comment : itm.comment,
+        item_id : itm.item_id._id,   
+        qty : itm.qty,
+        selectedOptions : [
+       ]
+      }
+
+      itm.selectedOptions.forEach((optn) => {
+       cpy.selectedOptions.push(optn._id)
+      })
+
+      updateOrder.items.push(cpy);
+   });
+
+   await updateSingleOrder(updateOrder,item._id)
+   await fetchOrders(orderDispatch);
   };
 
-  const handleCompleteClick = () => {
-    setCompleted(true);
+  const handleDeleteOrder = async () => {
+    await deleteOrder(item._id,"Order Deleted successfuly.");
+    await fetchOrders(orderDispatch);
   };
 
     return (
 
-      <div className={`w-full h-auto bg-${item.order_status.toLowerCase() === 'pending' ? 'orange' : (item.order_status.toLowerCase() === 'completed' ? ' bg-slate-500 ' : 'green')}-600 border rounded-lg border-orange-50 relative`}>
+      <div className={`w-full h-auto ${item.order_status ===  OrderStatus.PENDING ? ' bg-orange-800 ' : (item.order_status ===  OrderStatus.COMPLETED ? 'bg-slate-500 ' : 'bg-green-800 ')}-600 border rounded-lg border-orange-50 relative`}>
       <div className="flex flex-row items-center justify-center gap-1 p-5">
       <div className="flex flex-col items-center justify-center md:w-full md:flex-row md:justify-between">
              <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
@@ -50,30 +74,45 @@ const Order = ({item}) => {
           </div>
         </div>
       )} */}
+
       {/* Dishes Section */}
       <div className="p-5 border-t border-gray-300">
-        <h6 className="text-lg font-medium text-gray-900 dark:text-white">Dishes:</h6>
-        <ul className="ml-6 list-disc">
-          {item.items.map((dish) => {
-            return (<li key={dish.item_id._id}>
-              [DISH ID: {dish._id}] - <span className="font-semibold">{dish.item_id.title}</span> - {dish.qty} Items
-              <br />
-              {/* <span className='font-semibold ' > Add Ons: </span> 
-              <ul className="ml-8 list-disc">
-                {dish.item_id.customize.map((adn) => {
-                  return (
-                    <li key={adn.option_id}>
-                        {adn.option} - Rs.{adn.price}
-                    </li>
-                 )
-                }) }
-                </ul> */}
-                <span className='font-semibold ' >  Instructions: </span><br/>
-                {dish.comment}
-            </li>)}
-          )}
-        </ul>
-      </div>
+    <h6 className="mb-4 text-2xl font-bold text-white">Dishes:</h6>
+    <ul className="ml-6 space-y-4">
+      {item.items.map((dish) => (
+        <li key={dish.item_id._id} className="py-2 border-b border-gray-400">
+          <div className="flex flex-col md:flex-row md:justify-between">
+            <div className="mb-2">
+              <span className="text-lg font-semibold text-white">{dish.item_id.title}</span>
+              <span className="ml-2 text-gray-300">({dish.qty} Items)</span>
+            </div>
+            <span className="text-lg text-gray-300">[DISH ID: {dish._id}]</span>
+          </div>
+          <div className='mt-2'>
+          {dish.selectedOptions.length > 0 ? (
+                          <div className="mt-2">
+                            <span className="text-lg font-semibold text-white">Addons:</span>
+                            <ul className="ml-4 space-y-1 text-white list-disc">
+                              {dish.selectedOptions.map((addon, index) => (
+                                <li key={index}>{addon.option}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        ) : (
+                          <></>
+                        )}
+          </div>
+          <div className="mt-2">
+            <span className="text-lg font-semibold text-white">Instructions:</span>
+            <br />
+            <p className="text-gray-200">{dish.comment}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+
       {/* Special Instructions */}
       {/* {item.special_instructions && (
         <div className="p-5">
@@ -96,36 +135,40 @@ const Order = ({item}) => {
       </div> */}
       {/* Action Buttons */}
       <div className="flex flex-row items-center justify-between p-3">
-        {item.order_status.toLowerCase() === 'pending' && !accepted && (
+        {item.order_status === OrderStatus.PENDING && (
           <>
             <button
               className="flex items-center px-3 py-1 text-lg text-white bg-green-600 rounded-md shadow-lg cursor-pointer hover:bg-green-700"
               title="Accept"
-              onClick={handleAcceptClick}
+              onClick={() => handleOrderStatus(OrderStatus.PROCESSING)}
             >
               <MdCheck className="mr-1" /> Accept
             </button>
             <button
-              className="flex items-center px-3 py-1 text-lg text-white bg-red-600 rounded-md shadow-lg cursor-pointer hover:bg-red-700"
+              className="flex items-center px-3 py-1 text-lg text-white bg-red-500 rounded-md shadow-lg cursor-pointer hover:bg-red-700"
               title="Reject"
+              onClick={() =>handleOrderStatus(OrderStatus.CANCELLED)}
             >
               <MdCancel className="mr-1" /> Reject
             </button>
           </>
         )}
-        {item.order_status.toLowerCase() === 'processing' && !completed && (
+        {item.order_status === OrderStatus.PROCESSING && (
           <button
             className="flex items-center px-3 py-1 text-lg text-white bg-orange-600 rounded-md shadow-lg cursor-pointer hover:bg-green-700"
             title="Complete"
-            onClick={handleCompleteClick}
+            onClick={ () => handleOrderStatus(OrderStatus.COMPLETED)}
           >
             <MdCheck className="mr-1" /> Complete
           </button>
         )}
-        {item.order_status.toLowerCase() === 'completed' && (
+        {item.order_status=== OrderStatus.COMPLETED && (
           <button
             className="flex items-center px-3 py-1 text-lg text-white bg-red-600 rounded-md shadow-lg cursor-pointer hover:bg-red-700"
             title="Delete"
+            onClick={() => {
+              handleDeleteOrder()
+            }}
           >
             <MdDeleteForever className="mr-1" /> Delete
           </button>

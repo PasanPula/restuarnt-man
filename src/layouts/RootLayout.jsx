@@ -8,6 +8,8 @@ import { ToastContainer } from 'react-toastify';
 import { useUserContext } from '../context/UserContext/UserProvider';
 import { useMenuContext } from '../context/MenuContext/MenuProvider';
 import { fetchMenuData } from '../api/api';
+import 'react-loading-skeleton/dist/skeleton.css';
+import { SkeletonTheme } from 'react-loading-skeleton';
 
 export const RootLayout = () => {
 
@@ -22,6 +24,7 @@ export const RootLayout = () => {
   return (
     <>
     <ToastContainer />
+    <SkeletonTheme baseColor="#d4d4d4" highlightColor="#b8b8b8">
      <div className="w-screen h-auto min-h-[100vh] flex flex-col bg-primary">
       {!((isAdmin && adminMode) || (isKitchen && kitchenMode) )&& <Header />}
        {showCart && <Cart />}
@@ -35,6 +38,7 @@ export const RootLayout = () => {
           <Outlet/>
         </main>
      </div>
+     </SkeletonTheme>
     </>
 
   )
