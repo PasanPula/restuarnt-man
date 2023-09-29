@@ -211,11 +211,10 @@ export function OrderFilter(Orders,type){
 
 export function getOrderPrice(order){
   let val = 0;
-  console.log(order)
   order.items.map((ord) => {
       val += parseInt(ord.qty) * parseInt(ord.item_id.price);
       ord.selectedOptions.map((option)=> {
-          val += parseInt(option.price);
+          val += parseInt(option.price) * parseInt(ord.qty)
       })
   });
   return val;

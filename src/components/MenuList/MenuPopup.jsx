@@ -24,11 +24,11 @@ const MenuPopup = ({item,setShowCustomizePopup}) => {
     
 
     const calculateTotalValue = () => {
-        let total = parseInt(price);
+        let total = parseInt(price) * quantity;
         selectedOptions.forEach((option) => {
-          total += parseInt(option.price); 
+          total += parseInt(option.price) * quantity; 
         });
-        return total * quantity;
+        return total ;
     };
 
     const toggleOption = (option) => {
