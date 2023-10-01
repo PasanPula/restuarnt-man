@@ -23,10 +23,14 @@ export const RootLayout = () => {
 
   return (
     <>
+    {/* Toast Message Container */}
     <ToastContainer />
+    {/* Sketlton Loader Colors */}
     <SkeletonTheme baseColor="#d4d4d4" highlightColor="#b8b8b8">
      <div className="w-screen h-auto min-h-[100vh] flex flex-col bg-primary">
+      {/* Navbar and user mode selection dropdown - Components -> headers -> Header.jsx */}
       {!((isAdmin && adminMode) || (isKitchen && kitchenMode) )&& <Header />}
+      {/* User Cart sidebar */}
        {showCart && <Cart />}
        <main
           className={`${
@@ -35,6 +39,7 @@ export const RootLayout = () => {
           } w-full h-auto`}
           onClick={() => {}}
         >
+          {/* Inject Selecte route page Component */}
           <Outlet/>
         </main>
      </div>

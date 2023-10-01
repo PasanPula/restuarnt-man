@@ -38,6 +38,9 @@ const searchFood = (e) => {
 
   return (
     <>
+    {/* Edit Available Dish in the menu */}
+
+    {/* Show the update Menu popup - MenuupdateUI.jsx */}
     {showItemEdit ? <MenuUpdateUI currentFoodItem={currentFoodItem} setShowItemEdit={setShowItemEdit} /> : 
     <div className="flex flex-col justify-center w-full">
       {/* search bar */}
@@ -55,6 +58,7 @@ const searchFood = (e) => {
         </button>
       </div>
       <div className="flex flex-wrap items-center justify-center w-full gap-3 overflow-x-hidden">
+        {/* MenuItem Cards - Components ->  menuList -> menuItem.jsx*/}
         { filteredMenuItems.length ?
             filteredMenuItems.map((item,index) => (
                 <MenuItem key={index} item={item} setShowItemEdit={setShowItemEdit} setCurrentFoodItem={setCurrentFoodItem} col  />

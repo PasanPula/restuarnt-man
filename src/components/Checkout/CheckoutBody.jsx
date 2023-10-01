@@ -41,7 +41,7 @@ const CheckoutBody = ({action}) => {
 
   return (
     <div className="w-full h-full rounded-t-[2rem]  bg-cartBg flex flex-col">
-    {/* Payment Selectors */}
+    {/* Payment Selectors -> paymentSelector.jsx */}
     <PaymentSelector />
     {/* payment form  */}
     <div className="min-h-[50vh] mt-5">
@@ -70,6 +70,7 @@ const CheckoutBody = ({action}) => {
         </motion.button>
       </div>
     </div>
+    {/* checkout Secured by Stripe Comp */}
     <CheckoutFooter />
   </div>
   )

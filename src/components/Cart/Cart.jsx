@@ -19,6 +19,7 @@ const [cartItem,setcartItem] = useState()
     <>
       {showCustomizePopup ? (<CartPopup item={cartItem} setShowCustomizePopup={setShowCustomizePopup}/>) : (
       checkoutOpen ? (
+        // Checkout Component - Cart -> Cart.jsx
         <Checkout handler={setCheckoutOpen} />
       ) : (
         <>
@@ -28,15 +29,18 @@ const [cartItem,setcartItem] = useState()
             exit={{ opacity: 0, x: 200 }}
             className={`w-full h-screen md:w-[350px] bg-white md:backdrop-blur-sm flex flex-col z-[101] drop-shadow-xl fixed top-0 right-0`}
           >
+            {/* Cart title and Clear btns - CartHeader.jsx */}
             <CartHeader />
             {cartItems && cartItems.length > 0 ? (
               <CartBody action={setCheckoutOpen} setShowCustomizePopup={setShowCustomizePopup} setcartItem={setcartItem}/>
             ) : (
               <div className="flex items-center justify-center flex-1 w-full h-full">
+                {/* Empty Csrt Illustration - EmptyCart.jsx */}
                 <EmptyCart />
               </div>
             )}
           </motion.div>
+          {/* Empty Cart Messgae - Component -> NotFound -> NotFound.jsx */}
           {!cartItems && <NotFound text={"Cart Items not available"} />}
         </>
       ))}

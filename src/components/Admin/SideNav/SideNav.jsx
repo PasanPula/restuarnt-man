@@ -29,6 +29,7 @@ const SideNav = ({activePage,setActivePage,setPageContent, showMobileSideNav, se
         <MdOutlineRestaurantMenu className="text-4xl text-orange-50" />
       </motion.div>
 
+{/* Logo and the Sidebar Tittle - Admin */}
     <motion.div
       initial={{ opacity: 0, x: 200 }}
       animate={{ opacity: 1, x: 0 }}
@@ -49,6 +50,7 @@ const SideNav = ({activePage,setActivePage,setPageContent, showMobileSideNav, se
       </Link>
     </motion.div>
 
+{/* Nav Menu of the sidebar */}
     <SideNavMenu
       activePage={activePage}
       setActivePage={setActivePage}

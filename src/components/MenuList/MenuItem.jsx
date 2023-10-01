@@ -142,7 +142,7 @@ const MenuItem = ({ item, col, setCurrentFoodItem, setShowItemEdit }) => {
         </div>
       </motion.div>
   
-      {/* Customize popup */}
+      {/*Dish Customize popup -> MenuPopup.jsx */}
       {showCustomizePopup && (
         <MenuPopup item={item} setShowCustomizePopup={setShowCustomizePopup} />
       )}

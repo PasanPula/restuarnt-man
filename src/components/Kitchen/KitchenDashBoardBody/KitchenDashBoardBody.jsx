@@ -14,6 +14,7 @@ const KitchenDashBoardBody = ({ showLoader,pageTitle, Element, setshowMobileSide
   return (
     <>
      { showLoader ? 
+    //  Sketlton Laoder
        <div className="flex flex-col w-full md:w-[80%] h-screen px-2">
        <div className="flex justify-between w-full px-6 pt-6 pb-2 text-xl font-bold text-gray-600 border-b-2 border-orange-200">
          <div className="flex items-center justify-center md:hidden">
@@ -34,6 +35,7 @@ const KitchenDashBoardBody = ({ showLoader,pageTitle, Element, setshowMobileSide
        </div>
      </div>
      : 
+    //  Orders list
     <div className="flex flex-col w-full md:w-[80%] h-screen px-2">
     <div className="flex justify-between w-full px-6 pt-6 pb-2 text-xl font-bold text-gray-600 border-b-2 border-orange-200">
       <motion.div
@@ -51,6 +53,7 @@ const KitchenDashBoardBody = ({ showLoader,pageTitle, Element, setshowMobileSide
         </button>
       </Link>
     </div>
+    {/* Take the selected order staus order element form Kitchen page and render it. */}
     <div className="flex-1 my-2 overflow-y-scroll border-8 border-gray-200 border-dotted rounded-xl">{Element}</div>
   </div> } </>
   )

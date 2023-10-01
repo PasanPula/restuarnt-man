@@ -26,6 +26,7 @@ const MenuContainer = ({scrollOffset, col, items, className }) => {
     }`}
   >
     {items  && items.map((item) => (
+      //Single Menu Item Render -> MenuItem.jsx
       <MenuItem key={item._id} item = {item} col = {col} admin = {
         // isAdmin(user)  
         false

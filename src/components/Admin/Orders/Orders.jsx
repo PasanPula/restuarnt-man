@@ -43,6 +43,7 @@ const Orders = () => {
   };
 
   return (
+    // Show the Completed orde4rs for the admin
     <div className="flex flex-col justify-center w-full">
       <div className="flex justify-center w-full p-2 mb-4 bg-white rounded-lg">
         <input
@@ -63,6 +64,7 @@ const Orders = () => {
           </>
         ) : filteredOrders.length ? (
           filteredOrders.map((orderItem, index) => (
+            // Show the Single Order item - Compoents -> Admin -> Orders -> Order.jsx
             <Order key={index} item={orderItem} />
           ))
         ) : (

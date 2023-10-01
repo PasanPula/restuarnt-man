@@ -37,8 +37,11 @@ useEffect(() => {
 
   return (
     <>
+    {/* Kitchen page */}
     <div className="flex items-start w-full h-screen gap-2">
+        {/* Sidebar of the Kitchen Page - Components -> Kitchen -> KitchenSideNav -> KithcenSideNav.jsx  */}
     <KitchenSideNav showLoader={showLoader} showMobileSideNav={showMobileSideNav} setshowMobileSideNav={setshowMobileSideNav}  activePage={activePage} setActivePage={setActivePage} setPageContent = {setElement} />
+ {/* Render the orders accroding to selcted Order staus types -  Components -> Kitchen -> KitchenSideNav -> KitchenSideNavBody -> KitchenSideNavBody.jsx */}
     <KitchenDashBoardBody showLoader={showLoader} setshowMobileSideNav={setshowMobileSideNav} pageTitle={activePage} Element = {element} />
     </div> 
    </>

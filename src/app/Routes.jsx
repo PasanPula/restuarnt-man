@@ -9,8 +9,10 @@ import Orders from "../pages/orders/Orders";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
+      // Root layout is on the Layouts folder
       <Route element={ <RootLayout /> }>
-        <Route index element={ <Home/> }></Route>
+        {/* Page components are in the Pages Folder */}
+        <Route index element={ <Home/> }></Route> 
         <Route path="/login" element={ <Login/> }></Route>
         <Route path="/register" element={ <Register/> }></Route>
         <Route path="/dashboard" element={ <Dashboard/> }></Route>

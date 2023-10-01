@@ -52,6 +52,7 @@ const OrdersList = ({page}) => {
     }
 
   return (
+    // Render Order List for Kitchen page
     <div className="flex flex-col justify-center w-full">
     <div className="flex justify-center w-full p-2 mb-4 bg-white rounded-lg">
       <input
@@ -68,6 +69,7 @@ const OrdersList = ({page}) => {
     <div className="grid w-full grid-cols-1 gap-1">
   {filteredOrders.length ? (
     filteredOrders.map((orderItem, index) => (
+      // Renders indvidual order -> Kitchen -> OrderList -> Order.jsx
       <Order key={index} item={orderItem} />
     ))
   ) : (

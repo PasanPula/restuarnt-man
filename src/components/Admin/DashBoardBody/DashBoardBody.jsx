@@ -29,6 +29,8 @@ const DashBoardBody = ({ pageTitle, Element, setshowMobileSideNav }) => {
         </button>
       </Link>
     </div>
+
+    {/* Get the Selected Side nav page element form the dashboard page and render it. */}
     <div className="flex-1 my-2 overflow-y-scroll border-8 border-gray-200 border-dotted rounded-xl scrollbar-hidden">{Element}</div>
     
   </div>

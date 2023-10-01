@@ -15,9 +15,7 @@ import NotFound from "../../components/NotFound/NotFound";
 import Skeleton from "react-loading-skeleton";
 import { OrderStatus } from "../../configs/Constants/Types";
 import { getOrderPrice } from "../../util/utilFunctions";
-import {
-  MdOutlineCancel,MdSave
-} from "react-icons/md";
+import { MdOutlineCancel, MdSave } from "react-icons/md";
 
 const OrderStatusBadge = ({ status }) => {
   let badgeClass = "";
@@ -139,6 +137,9 @@ const Orders = () => {
 
   return (
     <>
+      {/* Show the Order Lsit for Users */}
+
+      {/* Order Edit popup show when click on the order edit button - Componets -> orderspage -> orderEditPopup.jsx */}
       {showCustomizePopup && (
         <OrderEditPopup
           orderItem={editingOrderItem}
@@ -159,6 +160,7 @@ const Orders = () => {
           </div>
         </div>
         {showLoader ? (
+          // Skelton loader
           <motion.div
             className="p-6 border border-gray-300 rounded-lg shadow-lg"
             initial={{ opacity: 0, y: -20 }}
@@ -217,122 +219,128 @@ const Orders = () => {
         ) : orders.length > 0 ? (
           <div className="grid gap-6 ">
             {orders?.map((order) => {
-             return(<motion.div
-                key={order.order_id}
-                className="p-6 bg-white border border-gray-300 rounded-lg shadow-lg"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <div className="text-xl font-semibold">
-                    Order #{order.order_id}
+              return (
+                <motion.div
+                  key={order.order_id}
+                  className="p-6 bg-white border border-gray-300 rounded-lg shadow-lg"
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {/* Show the Order Stautus on top of the card */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="text-xl font-semibold">
+                      Order #{order.order_id}
+                    </div>
+                    <OrderStatusBadge status={order.order_status} />
                   </div>
-                  <OrderStatusBadge status={order.order_status} />
-                </div>
-                <div className="mb-4">
-                  {/* <div className="font-bold text-orange-600 text-md">Paid: Rs.{order.items.reduce((sum, item) => sum + item.totalValue, 0)}</div> */}
-                  <div className="text-sm text-gray-600">
-                    Order Date: {order.order_date}
+                  <div className="mb-4">
+                    {/* <div className="font-bold text-orange-600 text-md">Paid: Rs.{order.items.reduce((sum, item) => sum + item.totalValue, 0)}</div> */}
+                    {/* Basic Order Infora=mation */}
+                    <div className="text-sm text-gray-600">
+                      Order Date: {order.order_date}
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      Payment Method: {order.payment_method}
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      Amount: Rs.{getOrderPrice(order)}.00
+                    </div>
                   </div>
-                  <div className="text-sm text-gray-600">
-                    Payment Method: {order.payment_method}
-                  </div>
-                  <div className="text-sm text-gray-600">
-                    Amount: Rs.{getOrderPrice(order)}.00
-                  </div>
-                </div>
-                <div className="mb-4">
-                  <div className="text-lg font-semibold">Order Items:</div>
-                  <ul className="ml-6 space-y-4">
-                    {order.items.map((item) => (
-                      <li
-                        key={item.item_id._id}
-                        className="py-2 border-b border-gray-300"
-                      >
-                        <div className="flex flex-col items-start justify-between md:flex-row md:items-center">
-                          <div className="flex items-center">
-                            <span className="text-xl font-semibold">
-                              {item.item_id?.title}
-                            </span>
-                            <span className="ml-2 text-gray-600">
-                              (Qty: {item.qty})
-                            </span>
+                  <div className="mb-4">
+                    <div className="text-lg font-semibold">Order Items:</div>
+                    <ul className="ml-6 space-y-4">
+                      {order.items.map((item) => (
+                        <li
+                          key={item.item_id._id}
+                          className="py-2 border-b border-gray-300"
+                        >
+                          <div className="flex flex-col items-start justify-between md:flex-row md:items-center">
+                            <div className="flex items-center">
+                              <span className="text-xl font-semibold">
+                                {item.item_id?.title}
+                              </span>
+                              <span className="ml-2 text-gray-600">
+                                (Qty: {item.qty})
+                              </span>
+                            </div>
+                            {editingOrder === order.order_id && (
+                              <button
+                                className="flex items-center justify-center w-8 h-8 ml-3 text-sm bg-green-600 rounded-lg text-gray-50"
+                                onClick={() => handleOrderItemEdit(item, order)}
+                              >
+                                <BiSolidPencil />
+                              </button>
+                            )}
                           </div>
-                          {editingOrder === order.order_id && (
-                            <button
-                              className="flex items-center justify-center w-8 h-8 ml-3 text-sm bg-green-600 rounded-lg text-gray-50"
-                              onClick={() => handleOrderItemEdit(item, order)}
-                            >
-                              <BiSolidPencil />
-                            </button>
+                          {/* Addons List */}
+                          {item.selectedOptions.length > 0 ? (
+                            <div className="mt-2">
+                              <span className="font-semibold">Addons:</span>
+                              <ul className="ml-4 space-y-1 list-disc">
+                                {item.selectedOptions.map((addon, index) => (
+                                  <li key={index}>{addon.option}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          ) : (
+                            <></>
                           )}
-                        </div>
-                        {item.selectedOptions.length > 0 ? (
-                          <div className="mt-2">
-                            <span className="font-semibold">Addons:</span>
-                            <ul className="ml-4 space-y-1 list-disc">
-                              {item.selectedOptions.map((addon, index) => (
-                                <li key={index}>{addon.option}</li>
-                              ))}
-                            </ul>
-                          </div>
-                        ) : (
-                          <></>
-                        )}
-                        {item.comment && (
-                          <div className="mt-2">
-                            <span className="font-semibold">Comment:</span>{" "}
-                            {item.comment}
-                          </div>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                {order.order_status.toLowerCase() === "pending" && (
-                  <div className="mb-2 text-orange-500">
-                    <span role="img" aria-label="Warning Star">
-                      *
-                    </span>
-                    Edit Order will incur additional charges
+                          {item.comment && (
+                            <div className="mt-2">
+                              <span className="font-semibold">Comment:</span>{" "}
+                              {item.comment}
+                            </div>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                )}
-                <div className="flex flex-row justify-between">
-                  {editingOrder === order.order_id ? (
-                    <motion.button
-                      className={`px-4 py-2 ${
-                        updatedItemData.length === 0
-                          ? "bg-btnColor hover:bg-gray-600 text-gray-300"
-                          : "text-green-500 bg-btnColor hover:bg-green-600 hover:text-white border"
-                      } rounded-lg flex flex-row items-center justify-center gap-1 `}
-                      onClick={handleSaveOrder}
-                      disabled={updatedItemData.length === 0 ? true : false}
-                    >
-                     <MdSave/> Save Order
-                    </motion.button>
-                  ) : (
-                    order.order_status.toLowerCase() === "pending" && (
-                      <motion.button
-                        className="flex flex-row items-center justify-center gap-1 px-4 py-2 text-orange-500 border rounded-lg bg-btnColor hover:bg-orange-600 hover:text-white"
-                        onClick={() => handleEditOrder(order)}
-                      >
-                       <BiSolidPencil/>  Edit Order
-                      </motion.button>
-                    )
-                  )}
-
+                  {/* Order Actions */}
                   {order.order_status.toLowerCase() === "pending" && (
-                    <motion.button
-                      className="flex flex-row items-center justify-center gap-1 px-4 py-2 text-red-500 border rounded-lg bg-btnColor hover:bg-red-600 hover:text-white "
-                      onClick={() => handleCancelOrder(order)}
-                    >
-                     <MdOutlineCancel />  Cancel Order
-                    </motion.button>
+                    <div className="mb-2 text-orange-500">
+                      <span role="img" aria-label="Warning Star">
+                        *
+                      </span>
+                      Edit Order will incur additional charges
+                    </div>
                   )}
-                </div>
-              </motion.div>)
+                  <div className="flex flex-row justify-between">
+                    {editingOrder === order.order_id ? (
+                      <motion.button
+                        className={`px-4 py-2 ${
+                          updatedItemData.length === 0
+                            ? "bg-btnColor hover:bg-gray-600 text-gray-300"
+                            : "text-green-500 bg-btnColor hover:bg-green-600 hover:text-white border"
+                        } rounded-lg flex flex-row items-center justify-center gap-1 `}
+                        onClick={handleSaveOrder}
+                        disabled={updatedItemData.length === 0 ? true : false}
+                      >
+                        <MdSave /> Save Order
+                      </motion.button>
+                    ) : (
+                      order.order_status.toLowerCase() === "pending" && (
+                        <motion.button
+                          className="flex flex-row items-center justify-center gap-1 px-4 py-2 text-orange-500 border rounded-lg bg-btnColor hover:bg-orange-600 hover:text-white"
+                          onClick={() => handleEditOrder(order)}
+                        >
+                          <BiSolidPencil /> Edit Order
+                        </motion.button>
+                      )
+                    )}
+
+                    {order.order_status.toLowerCase() === "pending" && (
+                      <motion.button
+                        className="flex flex-row items-center justify-center gap-1 px-4 py-2 text-red-500 border rounded-lg bg-btnColor hover:bg-red-600 hover:text-white "
+                        onClick={() => handleCancelOrder(order)}
+                      >
+                        <MdOutlineCancel /> Cancel Order
+                      </motion.button>
+                    )}
+                  </div>
+                </motion.div>
+              );
             })}
           </div>
         ) : (

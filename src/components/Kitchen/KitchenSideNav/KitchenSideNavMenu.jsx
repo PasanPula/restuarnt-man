@@ -1,7 +1,7 @@
 import React from "react";
 import { AiFillDashboard } from "react-icons/ai";
 import { HiRefresh } from "react-icons/hi";
-import { MdPendingActions,MdDone } from "react-icons/md";
+import { MdPendingActions, MdDone } from "react-icons/md";
 
 import {
   MdAddModerator,
@@ -16,54 +16,61 @@ import OrdersList from "../OrderList/OrdersList";
 import { KitchenPages } from "../../../configs/Constants/Pages";
 import EditMenu from "../../Admin/EditMenu/EditMenu";
 
-const SideNavMenu = ({ activePage, setActivePage, setPageContent, setshowMobileSideNav }) => {
+const SideNavMenu = ({
+  activePage,
+  setActivePage,
+  setPageContent,
+  setshowMobileSideNav,
+}) => {
   return (
     <motion.nav
-    initial={{ opacity: 0, x: 200 }}
-    animate={{ opacity: 1, x: 0 }}
-    exit={{ opacity: 0, x: 200 }}
-    className="w-full space-y-2 "
-  >
-    <NavItem
-      activePage={activePage}
-      svgIcon={<MdPendingActions />}
-      title="Pending"
-      setActivePage={setActivePage}
-      setPageContent={setPageContent}
-      pageContent={ <OrdersList page={KitchenPages.PENDING} /> }
-      setshowMobileSideNav={setshowMobileSideNav}
-    />
-    <NavItem
-      activePage={activePage}
-      svgIcon={<HiRefresh />}
-      title="Processing"
-      setActivePage={setActivePage}
-      setPageContent={setPageContent}
-      pageContent={<OrdersList page={KitchenPages.PROCESSING}/> }
-      setshowMobileSideNav={setshowMobileSideNav}
-    />
-    <NavItem
-      activePage={activePage}
-      svgIcon={<MdDone />}
-      title="Completed"
-      setActivePage={setActivePage}
-      setPageContent={setPageContent}
-      pageContent={<OrdersList page={KitchenPages.COMPLETED}/> }
-      setshowMobileSideNav={setshowMobileSideNav}
-    />
-    <NavItem
-      activePage={activePage}
-      svgIcon={<MdOutlineFavoriteBorder />}
-      title="Menu"
-      setActivePage={setActivePage}
-      setPageContent={setPageContent}
-      setshowMobileSideNav={setshowMobileSideNav}
-      pageContent={
-        <EditMenu/>
-      }
-    />
-  </motion.nav>
-  )
+      initial={{ opacity: 0, x: 200 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: 200 }}
+      className="w-full space-y-2 "
+    >
+      <NavItem
+        activePage={activePage}
+        svgIcon={<MdPendingActions />}
+        title="Pending"
+        setActivePage={setActivePage}
+        setPageContent={setPageContent}
+        // Render the Oderlist according to selected order status type on the side anv bar - PENDING ORDERS - Components -> Kitchen -> OrderList > Oders.jsx
+        pageContent={<OrdersList page={KitchenPages.PENDING} />}
+        setshowMobileSideNav={setshowMobileSideNav}
+      />
+      <NavItem
+        activePage={activePage}
+        svgIcon={<HiRefresh />}
+        title="Processing"
+        setActivePage={setActivePage}
+        setPageContent={setPageContent}
+        // Render the Oderlist according to selected order status type on the side anv bar - Processing ORDERS - Components -> Kitchen -> OrderList > Oders.jsx
+        pageContent={<OrdersList page={KitchenPages.PROCESSING} />}
+        setshowMobileSideNav={setshowMobileSideNav}
+      />
+      <NavItem
+        activePage={activePage}
+        svgIcon={<MdDone />}
+        title="Completed"
+        setActivePage={setActivePage}
+        setPageContent={setPageContent}
+        // Render the Oderlist according to selected order status type on the side anv bar - Completed ORDERS - Components -> Kitchen -> OrderList > Oders.jsx
+        pageContent={<OrdersList page={KitchenPages.COMPLETED} />}
+        setshowMobileSideNav={setshowMobileSideNav}
+      />
+      <NavItem
+        activePage={activePage}
+        svgIcon={<MdOutlineFavoriteBorder />}
+        title="Menu"
+        setActivePage={setActivePage}
+        setPageContent={setPageContent}
+        setshowMobileSideNav={setshowMobileSideNav}
+        // Show the menu with Dish id - componets -> Admin -> EditMenu -> EditMenu.jsx
+        pageContent={<EditMenu />}
+      />
+    </motion.nav>
+  );
 };
 
 export default SideNavMenu;

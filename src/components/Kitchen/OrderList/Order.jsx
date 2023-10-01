@@ -46,7 +46,7 @@ const Order = ({item}) => {
   };
 
     return (
-
+// Render Order List for the Kitchen
       <div className={`w-[95%] mx-auto h-auto ${item.order_status ===  OrderStatus.PENDING ? ' bg-orderCardBg' : (item.order_status ===  OrderStatus.COMPLETED ? 'bg-orderCardBg ' : 'bg-orderCardBg')} border rounded-lg relative mt-4`}>
       <div className="flex flex-row items-center justify-center gap-1 p-5">
       <div className="flex flex-col items-center justify-center md:w-full md:flex-row md:justify-between">

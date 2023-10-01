@@ -82,7 +82,7 @@ const AddMenu = () => {
       qty: parseInt(quantity),
       category,
       description,
-      imageURL: 'tset',
+      imageURL: "tset",
       customize: addonIds,
     };
 
@@ -116,6 +116,7 @@ const AddMenu = () => {
   }, []);
 
   return (
+    // New dish item adding form
     <div
       ref={componentRef}
       className="items-center justify-center w-full h-fullflex "
@@ -125,6 +126,7 @@ const AddMenu = () => {
           <Loader progress={loaderMessage} />
         ) : (
           <>
+            {/* Food name */}
             <div className="flex w-full gap-2 py-3 border-b border-gray-300 -tems-center">
               <MdOutlineFastfood className="text-xl text-gray-600" />
               <input
@@ -138,6 +140,7 @@ const AddMenu = () => {
               />
             </div>
 
+            {/* Food Category Selection */}
             <div className="flex flex-col items-center w-full gap-3 md:flex-row">
               <div className="flex items-center w-full gap-2 py-2 border-b border-gray-300">
                 <BiCategory className="text-xl text-gray-600" />
@@ -147,6 +150,7 @@ const AddMenu = () => {
                   selected={category}
                 />
               </div>
+              {/* Dish Qty */}
               <div className="flex items-center w-full gap-2 py-2 border-b border-gray-300">
                 <MdOutlineProductionQuantityLimits className="text-2xl text-gray-600" />
                 <input
@@ -160,6 +164,8 @@ const AddMenu = () => {
                 />
               </div>
             </div>
+
+            {/* Dish Iamge upload Handler  - UploadImage.jsx*/}
             <div className="group flex justify-center items-center flex-col border-2 border-dotted border-gray-300 w-full h-[225px]  md:h-[420px] round-lg">
               {image ? (
                 <>
@@ -184,6 +190,7 @@ const AddMenu = () => {
                 <UploadImage setImage={setImage} />
               )}
             </div>
+            {/* Dish Price */}
             <div className="flex flex-col items-center w-full gap-3 md:flex-row">
               <div className="flex items-center w-full gap-2 py-2 border-b border-gray-300">
                 <GiTakeMyMoney className="text-2xl text-gray-600" />
@@ -198,6 +205,7 @@ const AddMenu = () => {
                 />
               </div>
             </div>
+            {/* Dish Description */}
             <div className="flex w-full gap-2 py-3 border-b border-gray-300 -tems-center">
               <BiFoodMenu className="text-xl text-gray-600" />
               <input
@@ -211,6 +219,7 @@ const AddMenu = () => {
               />
             </div>
 
+            {/* Dish Addons */}
             <div className="flex items-center w-full gap-2 py-2 border-b border-gray-300">
               <MdPadding className="text-4xl text-gray-600 " />
               <input
@@ -246,36 +255,37 @@ const AddMenu = () => {
               </motion.button>
             </div>
 
+            {/* Added Dishes Display */}
             {addons.length > 0 && (
               <div className="p-4 mt-4 border">
                 <h2 className="mb-2 text-lg font-semibold">Addons:</h2>
                 <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                   {addons.map((addon, index) => (
-                      <div
-                        key={index}
-                        className="flex flex-row items-center justify-between p-2 border rounded-lg md:flex-row hover:shadow-md"
-                      >
-                        <div className="items-center md:flex">
-                          <span className="text-lg font-semibold">
-                            {addon.option}
-                          </span>
-                          <span className="ml-2 text-gray-600">
-                            - Rs.{addon.price.toFixed(2)}
-                          </span>
-                        </div>
-                        <button
-                          className="mt-2 text-red-500 cursor-pointer hover:text-red-700 md:ml-4 md:mt-0"
-                          onClick={() => {
-                            deleteAddon(addon);
-                          }}
-                        >
-                          {" "}
-                          <MdDeleteOutline
-                            size={25}
-                            className="text-red-500 cursor-pointer"
-                          />
-                        </button>
+                    <div
+                      key={index}
+                      className="flex flex-row items-center justify-between p-2 border rounded-lg md:flex-row hover:shadow-md"
+                    >
+                      <div className="items-center md:flex">
+                        <span className="text-lg font-semibold">
+                          {addon.option}
+                        </span>
+                        <span className="ml-2 text-gray-600">
+                          - Rs.{addon.price.toFixed(2)}
+                        </span>
                       </div>
+                      <button
+                        className="mt-2 text-red-500 cursor-pointer hover:text-red-700 md:ml-4 md:mt-0"
+                        onClick={() => {
+                          deleteAddon(addon);
+                        }}
+                      >
+                        {" "}
+                        <MdDeleteOutline
+                          size={25}
+                          className="text-red-500 cursor-pointer"
+                        />
+                      </button>
+                    </div>
                   ))}
                 </ul>
               </div>

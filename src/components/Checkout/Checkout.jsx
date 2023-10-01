@@ -32,6 +32,7 @@ const Checkout = ({ handler }) => {
           <RiSecurePaymentLine className="text-xl cursor-pointer text-primeGold" />
         </motion.div>
       </div>
+      {/* checkout Paymount details submit Page  - CheckoutBody.jsx */}
       <CheckoutBody action={handler} />
     </motion.div>
   );

@@ -1,43 +1,42 @@
-import React, {useState} from 'react'
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import Navigation from './Navigation';
-import LoginAction from './LoginAction';
+import Navigation from "./Navigation";
+import LoginAction from "./LoginAction";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
-import Dropdown from './Dropdown';
-import MobileNav from './MobileNav';
-import { useUserContext } from '../../context/UserContext/UserProvider';
-import Avatar from '../../assets/avatar.png'
-import logo from '../../assets/logo2.png'
+import Dropdown from "./Dropdown";
+import MobileNav from "./MobileNav";
+import { useUserContext } from "../../context/UserContext/UserProvider";
+import Avatar from "../../assets/avatar.png";
+import logo from "../../assets/logo2.png";
 
 const Header = () => {
-
- const [isOpen, setIsOpen] = useState(false);
- const [isOpenMobileNav, setIsOpenMobileNav] = useState(false);
- const [{ user }, userDispatch] = useUserContext()
+  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenMobileNav, setIsOpenMobileNav] = useState(false);
+  const [{ user }, userDispatch] = useUserContext();
 
   return (
     <header className="fixed z-50 w-screen bg-containerbg backdrop-blur-md md:p-3 md:px-4 lg:p-6 lg:px-16">
-        {/* Tablet and Desktop */}
+      {/* Tablet and Desktop */}
       <div className="justify-between hidden w-full md:flex itesm-center">
         <Link to={"/"}>
           <motion.div
             whileHover={{ scale: 1.1 }}
             className="flex items-center gap-2 cursor-pointer"
           >
-            <img className='w-[30%] ' src={logo}></img>
+            <img className="w-[30%] " src={logo}></img>
             {/* <p className="font-bold text-headingColor md:text-lg lg:text-xl">
             River&apos;s&nbsp;Edge
             </p> */}
           </motion.div>
         </Link>
 
-        <div className='flex flex-row gap-3 ' >
-        <Navigation/>
+        <div className="flex flex-row gap-3 ">
+          {/* Navigation items. - Navigation.jsx */}
+          <Navigation />
 
-
-         {/* {user ? ( */}
+          {/* {user ? ( */}
           <div className={`group flex items-center gap-3 px-3 py-1 rounded-lg`}>
             <motion.div
               whileHover={{ scale: 1.1 }}
@@ -52,24 +51,24 @@ const Header = () => {
                 <RiArrowDropDownLine />
               </p>
             </motion.div>
+            {/* User mode Selection dropdown - Dropdown.jsx */}
             <Dropdown user={user} />
           </div>
-        {/* // ) : (
+          {/* User login & Signup action section - login & sign up - LoginAction.jsx */}
+          {/* // ) : (
         //   <LoginAction text={"Login"} />
         //  )} */}
-         </div>
-
-
         </div>
+      </div>
 
-
-         {/* Mobile */}
+      {/* Mobile */}
       <motion.div
         className="flex items-center justify-between w-full p-0 md:hidden"
         initial={{ opacity: 0, x: 200 }}
         animate={{ opacity: 1, x: 0 }}
         exit={{ opacity: 0, x: 200 }}
       >
+        {/* Mobile hamburger Menu - MobileNav.jsx */}
         {isOpenMobileNav ? (
           <MobileNav isOpen={isOpenMobileNav} setIsOpen={setIsOpenMobileNav} />
         ) : (
@@ -85,32 +84,32 @@ const Header = () => {
               <motion.div
                 whileHover={{ scale: 1.1 }}
                 className="flex items-center gap-2 cursor-pointer"
-              > 
+              >
                 <p className="text-xl font-bold text-headingColor">
-                    River&apos;s&nbsp;Edge
+                  River&apos;s&nbsp;Edge
                 </p>
               </motion.div>
             </Link>
             {/* {user ? ( */}
-              <div
-                className={`flex items-center gap-3 px-3 py-1 rounded-lg relative`}
+            <div
+              className={`flex items-center gap-3 px-3 py-1 rounded-lg relative`}
+            >
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                className="flex items-center justify-center group"
               >
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  className="flex items-center justify-center group"
-                >
-                  <img
-                    src={user?.photoURL ? user.photoURL : Avatar}
-                    className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-2xl rounded-full cursor-pointer"
-                    alt="user-profile"
-                    onClick={() => setIsOpen(!isOpen)}
-                  />
-                  <p className="flex items-center justify-center gap-2 cursor-pointer text-headingColor">
-                    <RiArrowDropDownLine />
-                  </p>
-                  {isOpen && <Dropdown user={user}  />}
-                </motion.div>
-              </div>
+                <img
+                  src={user?.photoURL ? user.photoURL : Avatar}
+                  className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-2xl rounded-full cursor-pointer"
+                  alt="user-profile"
+                  onClick={() => setIsOpen(!isOpen)}
+                />
+                <p className="flex items-center justify-center gap-2 cursor-pointer text-headingColor">
+                  <RiArrowDropDownLine />
+                </p>
+                {isOpen && <Dropdown user={user} />}
+              </motion.div>
+            </div>
             {/* ) : (
               <LoginAction mobile />
             )} */}
@@ -118,7 +117,7 @@ const Header = () => {
         )}
       </motion.div>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

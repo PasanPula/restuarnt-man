@@ -18,7 +18,9 @@ const KitchenSideNav = ({showLoader,activePage,setActivePage,setPageContent, sho
 
   return (
     <>
+    {/* Render the kitchen Page Nav Bar */}
     { showLoader ? 
+    // Skelton Loader
       <div className={`md:flex flex-col ${showMobileSideNav ? 'absolute z-50 backdrop-blur-sm flex' : " hidden "} w-full md:relative md:w-[20%] bg-sideBarGold text-orange-50 px-3 py-4 justify-center items-center h-full`}>
         <div className="relative flex items-center justify-end w-full text-textColor md:hidden">
           <Skeleton width={50} height={50} /> {/* Placeholder for icon */}
@@ -79,6 +81,7 @@ const KitchenSideNav = ({showLoader,activePage,setActivePage,setPageContent, sho
           </div>
         </div>
       </div> :
+    // Kitchen side Nav bar
     <div className={` md:flex flex-col ${showMobileSideNav ? 'absolute z-50 backdrop-blur-sm flex' : " hidden " }  w-full md:backdrop-blur-none md:relative md:w-[20%] bg-sideBarGold text-orange-50 px-3 py-4 justify-center items-center h-full`} >
     <motion.div
         whileTap={{ scale: 0.9 }}
@@ -91,6 +94,7 @@ const KitchenSideNav = ({showLoader,activePage,setActivePage,setPageContent, sho
         <MdOutlineRestaurantMenu className="text-4xl text-orange-50" />
       </motion.div>
 
+{/* Side bar header Section logo & title */}
       <motion.div
       initial={{ opacity: 0, x: 200 }}
       animate={{ opacity: 1, x: 0 }}
@@ -111,6 +115,7 @@ const KitchenSideNav = ({showLoader,activePage,setActivePage,setPageContent, sho
       </Link>
     </motion.div>
 
+{/* Render Side bar Nav Items */}
     <SideNavMenu
       activePage={activePage}
       setActivePage={setActivePage}
