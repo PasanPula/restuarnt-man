@@ -185,10 +185,10 @@ const CartPopup = ({item,setShowCustomizePopup}) => {
                      </p>
     
                     <button
-                        className="flex flex-row justify-center p-4 px-4 py-2 text-white bg-red-600 rounded-lg hover:bg-red-800"
+                        className="flex flex-row justify-center p-4 px-4 py-2 text-red-600 border rounded-lg bg-btnColor hover:bg-red-800 hover:text-white"
                         onClick={handleAddToCart}
                     >
-                        <MdAddShoppingCart className="text-white md:text-xl" />
+                        <MdAddShoppingCart className="md:text-xl" />
                         Update Cart
                     </button>
                 </div>

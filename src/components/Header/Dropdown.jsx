@@ -21,7 +21,7 @@ const Dropdown = ({user}) => {
     initial={{ opacity: 0, scale: 0.6 }}
     animate={{ opacity: 1, scale: 1 }}
     exit={{ opacity: 0, scale: 0.6 }}
-    className="absolute right-0 flex-col hidden rounded-lg shadow-xl group-hover:flex w-54 bg-containerbg top-16"
+    className="absolute right-0 flex-col hidden rounded-lg shadow-xl group-hover:flex w-54 bg-dropDonwbg top-16"
   >
     {/* User name */}
     <p className="flex items-center gap-3 px-10 py-2 text-base capitalize transition-all duration-100 ease-in-out bg-containerbg text-headingColor">
