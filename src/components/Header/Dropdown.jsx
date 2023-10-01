@@ -21,14 +21,14 @@ const Dropdown = ({user}) => {
     initial={{ opacity: 0, scale: 0.6 }}
     animate={{ opacity: 1, scale: 1 }}
     exit={{ opacity: 0, scale: 0.6 }}
-    className="absolute right-0 flex-col hidden rounded-lg shadow-xl group-hover:flex w-54 bg-gray-50 top-16"
+    className="absolute right-0 flex-col hidden rounded-lg shadow-xl group-hover:flex w-54 bg-containerbg top-16"
   >
-    <p className="flex items-center gap-3 px-10 py-2 text-base capitalize transition-all duration-100 ease-in-out bg-slate-100 text-headingColor">
+    <p className="flex items-center gap-3 px-10 py-2 text-base capitalize transition-all duration-100 ease-in-out bg-containerbg text-headingColor">
       {user?.displayName || user?.email || 'User'}
     </p>
     {isAdmin && (
       <button
-      className="flex items-center gap-3 px-10 py-2 text-base transition-all duration-100 ease-in-out cursor-pointer hover:bg-slate-100 text-textColor"
+      className="flex items-center gap-3 px-10 py-2 text-base transition-all duration-100 ease-in-out cursor-pointer hover:bg-containerbg text-textColor"
       onClick={() =>{ ToggleAdminMode(userDispatch, true)
         navigate('../dashboard', { replace: true });
       }}
@@ -39,7 +39,7 @@ const Dropdown = ({user}) => {
     )}
     {isKitchen && (
       <button
-      className="flex items-center gap-3 px-10 py-2 text-base transition-all duration-100 ease-in-out cursor-pointer hover:bg-slate-100 text-textColor"
+      className="flex items-center gap-3 px-10 py-2 text-base transition-all duration-100 ease-in-out cursor-pointer hover:bg-containerbg text-textColor"
       onClick={() =>{ToggleKitchenMode(userDispatch, true)
          navigate('../kitchen', { replace: true });
         }}

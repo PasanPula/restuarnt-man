@@ -51,7 +51,7 @@ const KitchenDashBoardBody = ({ showLoader,pageTitle, Element, setshowMobileSide
         </button>
       </Link>
     </div>
-    <div className="flex-1 mx-6 my-2 overflow-y-scroll border-8 border-gray-200 border-dotted rounded-xl">{Element}</div>
+    <div className="flex-1 my-2 overflow-y-scroll border-8 border-gray-200 border-dotted rounded-xl">{Element}</div>
   </div> } </>
   )
 }

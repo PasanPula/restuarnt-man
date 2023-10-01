@@ -47,6 +47,18 @@ body {
     /* Firefox */
 }
 
+.defaultShadow{
+    box-shadow: -3px 3px 56px -16px rgba(0,0,0,0.2);
+-webkit-box-shadow: -3px 3px 56px -16px rgba(0,0,0,0.2);
+-moz-box-shadow: -3px 3px 56px -16px rgba(0,0,0,0.2);
+}
+
+.defaultBtnShadow{
+    box-shadow: -3px 3px 56px -91px rgba(0,0,0,0.29);
+    -webkit-box-shadow: -3px 3px 56px -91px rgba(0,0,0,0.29);
+    -moz-box-shadow: -3px 3px 56px -91px rgba(0,0,0,0.29);
+}
+
 
 @tailwind base;
 @tailwind components;

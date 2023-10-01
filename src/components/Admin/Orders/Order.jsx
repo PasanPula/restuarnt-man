@@ -223,7 +223,7 @@ doc.autoTable(table);
   };
 
   return (
-    <div className="relative w-full h-auto border rounded-lg bg-slate-300 border-orange-50">
+    <div className="relative w-[95%] mx-auto mt-4 h-auto border rounded-lg bg-orderCardBg">
       <div className="flex flex-col items-center justify-center gap-5 p-5 md:flex-row md:justify-between">
         <div className="text-center md:text-left">
           <h5 className="mb-1 text-2xl font-bold text-black">Order No:</h5>
@@ -273,7 +273,7 @@ doc.autoTable(table);
       {/* Action Buttons */}
       <div className="flex flex-row items-center justify-between p-3">
         <button
-          className="flex items-center px-4 py-2 text-lg text-white bg-red-600 rounded-md shadow-lg cursor-pointer hover:bg-red-700"
+          className="flex items-center px-4 py-2 text-lg text-red-600 border rounded-md cursor-pointer bg-btnColor hover:bg-red-700 hover:text-white"
           title="Delete"
           onClick={() => {
             handleDeleteOrder();
@@ -283,7 +283,7 @@ doc.autoTable(table);
         </button>
 
         <button
-          className="flex items-center px-4 py-2 text-lg text-white bg-blue-600 rounded-md shadow-lg cursor-pointer hover:bg-blue-700"
+          className="flex items-center px-4 py-2 text-lg text-blue-600 border rounded-md cursor-pointer bg-btnColor hover:bg-blue-700 hover:text-white" 
           title="Generate PDF"
           onClick={() => {
             generatePDF();

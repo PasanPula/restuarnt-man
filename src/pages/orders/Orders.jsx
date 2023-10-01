@@ -15,6 +15,9 @@ import NotFound from "../../components/NotFound/NotFound";
 import Skeleton from "react-loading-skeleton";
 import { OrderStatus } from "../../configs/Constants/Types";
 import { getOrderPrice } from "../../util/utilFunctions";
+import {
+  MdOutlineCancel,MdSave
+} from "react-icons/md";
 
 const OrderStatusBadge = ({ status }) => {
   let badgeClass = "";
@@ -148,7 +151,7 @@ const Orders = () => {
           <h1 className="mb-6 text-2xl font-semibold">Your Orders</h1>
           <div className="flex items-center justify-between mb-4">
             <button
-              className="flex flex-row items-center px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 "
+              className="flex flex-row items-center px-4 py-2 text-blue-500 border rounded-lg bg-btnColor hover:bg-blue-600 hover:text-white"
               onClick={handleRefresh}
             >
               <FiRefreshCw className="mr-2" /> Refresh
@@ -212,11 +215,11 @@ const Orders = () => {
             </div>
           </motion.div>
         ) : orders.length > 0 ? (
-          <div className="grid gap-6">
+          <div className="grid gap-6 ">
             {orders?.map((order) => {
              return(<motion.div
                 key={order.order_id}
-                className="p-6 border border-gray-300 rounded-lg shadow-lg"
+                className="p-6 bg-white border border-gray-300 rounded-lg shadow-lg"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
@@ -301,31 +304,31 @@ const Orders = () => {
                     <motion.button
                       className={`px-4 py-2 ${
                         updatedItemData.length === 0
-                          ? "bg-gray-600 hover:bg-gray-600 text-gray-300"
-                          : "text-white bg-green-500 hover:bg-green-600"
-                      } rounded-lg `}
+                          ? "bg-btnColor hover:bg-gray-600 text-gray-300"
+                          : "text-green-500 bg-btnColor hover:bg-green-600 hover:text-white border"
+                      } rounded-lg flex flex-row items-center justify-center gap-1 `}
                       onClick={handleSaveOrder}
                       disabled={updatedItemData.length === 0 ? true : false}
                     >
-                      Save Order
+                     <MdSave/> Save Order
                     </motion.button>
                   ) : (
                     order.order_status.toLowerCase() === "pending" && (
                       <motion.button
-                        className="px-4 py-2 text-white bg-orange-500 rounded-lg hover:bg-orange-600"
+                        className="flex flex-row items-center justify-center gap-1 px-4 py-2 text-orange-500 border rounded-lg bg-btnColor hover:bg-orange-600 hover:text-white"
                         onClick={() => handleEditOrder(order)}
                       >
-                        Edit Order
+                       <BiSolidPencil/>  Edit Order
                       </motion.button>
                     )
                   )}
 
                   {order.order_status.toLowerCase() === "pending" && (
                     <motion.button
-                      className="px-4 py-2 text-white bg-red-500 rounded-lg hover:bg-red-600"
+                      className="flex flex-row items-center justify-center gap-1 px-4 py-2 text-red-500 border rounded-lg bg-btnColor hover:bg-red-600 hover:text-white "
                       onClick={() => handleCancelOrder(order)}
                     >
-                      Cancel Order
+                     <MdOutlineCancel />  Cancel Order
                     </motion.button>
                   )}
                 </div>

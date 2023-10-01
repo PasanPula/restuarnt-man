@@ -47,13 +47,13 @@ const Order = ({item}) => {
 
     return (
 
-      <div className={`w-full h-auto ${item.order_status ===  OrderStatus.PENDING ? ' bg-orange-800 ' : (item.order_status ===  OrderStatus.COMPLETED ? 'bg-slate-500 ' : 'bg-green-800 ')}-600 border rounded-lg border-orange-50 relative`}>
+      <div className={`w-[95%] mx-auto h-auto ${item.order_status ===  OrderStatus.PENDING ? ' bg-orderCardBg' : (item.order_status ===  OrderStatus.COMPLETED ? 'bg-orderCardBg ' : 'bg-orderCardBg')} border rounded-lg relative mt-4`}>
       <div className="flex flex-row items-center justify-center gap-1 p-5">
       <div className="flex flex-col items-center justify-center md:w-full md:flex-row md:justify-between">
-             <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+             <h5 className="mb-1 text-xl font-medium text-gray-900">
              Order No: {item?.order_id || 'Order'}
             </h5>
-            <span className="text-sm text-gray-300">{new Date(item?.updatedAt).toLocaleString('en-US')}</span>
+            <span className="text-sm text-text-gray-600">{new Date(item?.updatedAt).toLocaleString('en-US')}</span>
             {/* <span className="text-sm text-gray-300">{item?.total}</span> */}
       </div>
       </div>
@@ -77,22 +77,22 @@ const Order = ({item}) => {
 
       {/* Dishes Section */}
       <div className="p-5 border-t border-gray-300">
-    <h6 className="mb-4 text-2xl font-bold text-white">Dishes:</h6>
+    <h6 className="mb-4 text-2xl font-bold text-gray-900">Dishes:</h6>
     <ul className="ml-6 space-y-4">
       {item.items.map((dish) => (
         <li key={dish.item_id._id} className="py-2 border-b border-gray-400">
           <div className="flex flex-col md:flex-row md:justify-between">
             <div className="mb-2">
-              <span className="text-lg font-semibold text-white">{dish.item_id.title}</span>
-              <span className="ml-2 text-gray-300">({dish.qty} Items)</span>
+              <span className="text-lg font-semibold text-gray-900">{dish.item_id.title}</span>
+              <span className="ml-2 text-gray-900">({dish.qty} Items)</span>
             </div>
-            <span className="text-lg text-gray-300">[DISH ID: {dish._id}]</span>
+            <span className="text-lg text-gray-600">[DISH ID: {dish._id}]</span>
           </div>
           <div className='mt-2'>
           {dish.selectedOptions.length > 0 ? (
                           <div className="mt-2">
-                            <span className="text-lg font-semibold text-white">Addons:</span>
-                            <ul className="ml-4 space-y-1 text-white list-disc">
+                            <span className="text-lg font-semibold text-gray-900">Addons:</span>
+                            <ul className="ml-4 space-y-1 text-gray-900 list-disc">
                               {dish.selectedOptions.map((addon, index) => (
                                 <li key={index}>{addon.option}</li>
                               ))}
@@ -102,11 +102,12 @@ const Order = ({item}) => {
                           <></>
                         )}
           </div>
+          {dish.comment ? 
           <div className="mt-2">
-            <span className="text-lg font-semibold text-white">Instructions:</span>
+            <span className="text-lg font-semibold text-gray-900">Instructions:</span>
             <br />
-            <p className="text-gray-200">{dish.comment}</p>
-          </div>
+            <p className="text-gray-900">{dish.comment}</p>
+          </div> : '' }
         </li>
       ))}
     </ul>
@@ -138,14 +139,14 @@ const Order = ({item}) => {
         {item.order_status === OrderStatus.PENDING && (
           <>
             <button
-              className="flex items-center px-3 py-1 text-lg text-white bg-green-600 rounded-md shadow-lg cursor-pointer hover:bg-green-700"
+              className="flex items-center px-3 py-1 text-lg text-green-600 border rounded-md cursor-pointer bg-btnColor hover:bg-green-700 hover:text-white "
               title="Accept"
               onClick={() => handleOrderStatus(OrderStatus.PROCESSING)}
             >
               <MdCheck className="mr-1" /> Accept
             </button>
             <button
-              className="flex items-center px-3 py-1 text-lg text-white bg-red-500 rounded-md shadow-lg cursor-pointer hover:bg-red-700"
+              className="flex items-center px-3 py-1 text-lg text-red-500 border rounded-md cursor-pointer bg-btnColor hover:bg-red-700 hover:text-white "
               title="Reject"
               onClick={() =>handleOrderStatus(OrderStatus.CANCELLED)}
             >
@@ -155,7 +156,7 @@ const Order = ({item}) => {
         )}
         {item.order_status === OrderStatus.PROCESSING && (
           <button
-            className="flex items-center px-3 py-1 text-lg text-white bg-orange-600 rounded-md shadow-lg cursor-pointer hover:bg-green-700"
+            className="flex items-center px-3 py-1 text-lg text-orange-600 border rounded-md cursor-pointer bg-btnColor hover:bg-orange-600 hover:text-white"
             title="Complete"
             onClick={ () => handleOrderStatus(OrderStatus.COMPLETED)}
           >
@@ -164,7 +165,7 @@ const Order = ({item}) => {
         )}
         {item.order_status=== OrderStatus.COMPLETED && (
           <button
-            className="flex items-center px-3 py-1 text-lg text-white bg-red-600 rounded-md shadow-lg cursor-pointer hover:bg-red-700"
+            className="flex items-center px-3 py-1 text-lg text-red-600 border rounded-md cursor-pointer bg-btnColor hover:bg-red-700 hover:text-white"
             title="Delete"
             onClick={() => {
               handleDeleteOrder()

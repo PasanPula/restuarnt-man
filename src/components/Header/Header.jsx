@@ -18,7 +18,7 @@ const Header = () => {
  const [{ user }, userDispatch] = useUserContext()
 
   return (
-    <header className="fixed z-50 w-screen bg-cardOverlay backdrop-blur-md md:p-3 md:px-4 lg:p-6 lg:px-16">
+    <header className="fixed z-50 w-screen bg-containerbg backdrop-blur-md md:p-3 md:px-4 lg:p-6 lg:px-16">
         {/* Tablet and Desktop */}
       <div className="justify-between hidden w-full md:flex itesm-center">
         <Link to={"/"}>

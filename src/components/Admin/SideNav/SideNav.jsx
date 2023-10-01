@@ -16,7 +16,7 @@ const SideNav = ({activePage,setActivePage,setPageContent, showMobileSideNav, se
     const navigate = useNavigate();
 
   return (
-    <div className={` md:flex flex-col ${showMobileSideNav ? 'absolute z-50 backdrop-blur-sm flex' : " hidden " }  w-full md:backdrop-blur-none md:relative md:w-[20%] bg-primeGold text-orange-50 px-3 py-4 justify-center items-center h-full`} >
+    <div className={` md:flex flex-col ${showMobileSideNav ? 'absolute z-50 backdrop-blur-sm flex' : " hidden " }  w-full md:backdrop-blur-none md:relative md:w-[20%] bg-sideBarGold text-black px-3 py-4 justify-center items-center h-full`} >
     
     <motion.div
         whileTap={{ scale: 0.9 }}
@@ -43,7 +43,7 @@ const SideNav = ({activePage,setActivePage,setPageContent, showMobileSideNav, se
       >
          <img className='w-[60%] ' src={logo}></img>
          <br/>
-        <p className="pl-1 text-xl font-bold text-center no-underline text-orange-50 hover:text-orange-100">
+        <p className="pl-1 text-xl font-bold text-center text-black no-underline hover:text-sideBarGoldActive ">
          Administrator
         </p>
       </Link>
@@ -62,9 +62,9 @@ const SideNav = ({activePage,setActivePage,setPageContent, showMobileSideNav, se
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 200 }}
       onClick={() => logout(user, userDispatch, navigate)}
-      className="flex items-center justify-center gap-3 px-3 mt-auto cursor-pointer text-orange-50 opacity-70 hover:opacity-100"
+      className="flex items-center justify-center gap-3 px-3 mt-auto text-black cursor-pointer opacity-70 hover:opacity-100"
     >
-      <AiFillLock className="text-xl font-bold text-orange-50" />
+      <AiFillLock className="text-xl font-bold text-black" />
       <div className="">Logout</div>
     </motion.div>
 

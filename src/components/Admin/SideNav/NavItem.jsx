@@ -26,8 +26,8 @@ const handleClick = () => {
     <motion.div
       whileTap={{ scale: 1.1 }}
       onClick={handleClick}
-      className={`flex items-center no-underline text-orange-50 hover:text-orange-100 p-3 rounded-md cursor-pointer hover:bg-primeGoldDark ${
-        activePage === title ? "bg-primeGoldDark" : ""
+      className={`flex items-center no-underline text-black hover:text-orange-100 p-3 rounded-md cursor-pointer hover:bg-sideBarGoldActive ${
+        activePage === title ? "bg-sideBarGoldActive text-orange-100" : ""
       }`}
     >
       <p className="text-xl font-bold">{svgIcon}</p>

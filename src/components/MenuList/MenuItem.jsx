@@ -45,7 +45,7 @@ const MenuItem = ({ item, col, setCurrentFoodItem, setShowItemEdit }) => {
           !col ? "w-[275px] min-w-[275px]" : "w-[320px] min-w-[320px]"
         } md:w-[300px] md:min-w-[300px] ${
           col ? "my-12" : "my-2 md:my-5"
-        } ${isKitchen && kitchenMode ? ' h-[300px] flex flex-col justify-between ' : 'h-auto'} bg-cardOverlay rounded-lg p-2 px-3 backdrop-blur-lg hover:drop-shadow-sm cursor-pointer`}
+        } ${isKitchen && kitchenMode ? ' h-[300px] flex flex-col justify-between ' : 'h-auto'} bg-cardOverlay rounded-lg p-2 px-3 backdrop-blur-lg drop-shadow-xl dro hover:drop-shadow-2xl cursor-pointer`}
       >
         {isKitchen && kitchenMode ? (
           <span className="pb-3">
